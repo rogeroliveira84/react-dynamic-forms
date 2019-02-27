@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "plugin:jest/recommended", "plugin:react/recommended"],
+  "plugins": ["react", "jest"],
+  "globals": { "document": false, "localStorage": false, "fetch": false },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "max-len": "off",
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
+      }
+    }
+  ]
+}
