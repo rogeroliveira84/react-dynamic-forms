@@ -6,11 +6,11 @@ A react component to create dynamic forms developed using React.JS
 
 ### Version 1
 
-- 1.1 - Define the dynamic-form-config: able to mount the forms from it
-- 1.2 - Add form
+- :white_check_mark: 1.1 - Define the dynamic-form-config: able to mount the forms from it
+- :white_check_mark: 1.2 - Add form
 - 1.3 - Add caption and description to the inputs
 - 1.4 - Add input component types: text, number
-- 1.5 - Add onSubmit method prop
+- :white_check_mark: 1.5 - Add onSubmit method prop
 
 ### Version 2
 
