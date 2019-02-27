@@ -1,5 +1,25 @@
 {
     "name": "form1",
-    "components": [ 
+    "components": [
+        {
+            "label": "Full Name",
+            "type": "text",
+            "value": "",
+            "placeholder": "Please type your full name...",
+            "definition": "{'maxlength':'200'}"
+        },
+        {
+            "label": "Date Of Birth",
+            "type": "date",
+            "value": "",
+            "placeholder": "Please type your date of birth..."
+        },
+        {
+            "label": "Favority Number",
+            "type": "number",
+            "value": "",
+            "placeholder": "Please type your favority number...",
+            "definition": "{'step':'1', 'min':'0', 'max':'100'}"
+        }
     ]
 }
