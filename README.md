@@ -1,5 +1,5 @@
 # react-dynamic-forms
-A dynamic form developed using React.JS  
+A react component to create dynamic forms developed using React.JS  
 
  ### Roadmap:
 
