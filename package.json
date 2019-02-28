@@ -1,6 +1,7 @@
 {
   "name": "react-dynamic-forms",
   "version": "0.1.0",
+  "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
   "private": false,
   "dependencies": {
     "react": "^16.8.3",
