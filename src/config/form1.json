@@ -1,0 +1,44 @@
+{
+    "name": "form1",
+    "fields": [
+        {
+            "id": "fullname",
+            "label": "Full Name",
+            "type": "text",
+            "value": "",
+            "definition": "{'maxlength':'200'}",
+            "defaultValue": ""
+        },
+        {
+            "id": "dateOfBirth",
+            "label": "Date Of Birth",
+            "type": "date",
+            "value": "",
+            "defaultValue": ""
+        },
+        {
+            "id": "favorityNumber",
+            "label": "Favority Number",
+            "type": "number",
+            "value": "",
+            "definition": "{'step':'1', 'min':'0', 'max':'100'}",
+            "defaultValue": ""
+        },
+        {
+            "id": "dateTime",
+            "label": "Date Time",
+            "type": "datetime-local",
+            "value": "",
+            "definition": "{min':'2019-01-01T00:00','max'='2050-12-31T00:00'}",
+            "defaultValue": ""
+        },
+        {
+            "id": "time",
+            "label": "Time",
+            "type": "time",
+            "value": "",
+            "definition": "",
+            "defaultValue": ""
+        }
+    ]
+}
