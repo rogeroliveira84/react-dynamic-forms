@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
   "private": false,
+  "license" : "MIT",
   "dependencies": {
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
