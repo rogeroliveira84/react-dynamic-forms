@@ -1,6 +1,5 @@
 # ReactDynamicForms.js
-
-[![Build Status](https://travis-ci.com/rogeroliveira84/react-dynamic-forms.svg?branch=master)](https://travis-ci.com/rogeroliveira84/react-dynamic-forms)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) [![Build Status](https://travis-ci.com/rogeroliveira84/react-dynamic-forms.svg?branch=master)](https://travis-ci.com/rogeroliveira84/react-dynamic-forms)
 
 A react component to create dynamic forms based on a config.json, developed using [React.JS](https://reactjs.org/)
 
