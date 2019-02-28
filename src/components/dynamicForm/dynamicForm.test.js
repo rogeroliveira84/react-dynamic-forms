@@ -11,9 +11,9 @@ describe('DynamicForm', () => {
         mountedComponent = shallow(<DynamicForm {...props} />);
     });
     it('renders correctly', () => {
-      // debugger;
-      //   const component = mountedComponent.find('DynamicForm');
+        debugger;
+        const component = mountedComponent.find('DynamicForm');
 
-      //   expect(component.length).toBe(1);
+        expect(component.length).toBe(1);
     });
 });

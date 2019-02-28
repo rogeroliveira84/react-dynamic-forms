@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DynamicForm from './components/dynamicForm';
+import DynamicForm from './components/dynamicForm/dynamicForm';
 import configData from './config/form1.json'; 
 
 class App extends Component {
