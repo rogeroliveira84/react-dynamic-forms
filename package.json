@@ -1,6 +1,7 @@
 {
   "name": "@rogeroliveira84/react-dynamic-forms",
   "version": "0.3.0",
+  "licence": "MIT",
   "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
   "private": false,
   "license" : "MIT",
