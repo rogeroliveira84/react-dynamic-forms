@@ -13,7 +13,7 @@ A react component to create dynamic forms based on a config.json, developed usin
 - :white_check_mark: 1.4 - Add input component types: text, number
 - :white_check_mark: 1.5 - Add onSubmit method prop
 - :white_check_mark: 2.1 - Add input component types: date (html5), datetime (html5), time (html5)
-- :white_check_mark: 2.2 - add styles to the component
+- :white_check_mark: 2.2 - Add styles to the component
 
 ### Version 2
 
