@@ -3,8 +3,6 @@
 
 A react component to create dynamic forms based on a config.json, developed using [React.JS](https://reactjs.org/)
 
-[Created by Roger Oliveira](https://github.com/rogeroliveira84).
-
 ## Roadmap
 
 ### Version 1
