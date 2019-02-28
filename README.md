@@ -3,6 +3,12 @@
 
 A react component to create dynamic forms based on a config.json, developed using [React.JS](https://reactjs.org/)
 
+## Install
+
+```bash
+npm install --save @rogeroliveira84/react-dynamic-forms
+```
+
 ## Roadmap
 
 ### Version 1
