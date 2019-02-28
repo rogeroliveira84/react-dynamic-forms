@@ -24,3 +24,7 @@ A react component to create dynamic forms based on a config.json, developed usin
 
 - 4.1 - Add dynamic table type
 - 4.2 - Add CRUD to values of table type
+
+### License
+
+ReactDynamicForms is [MIT licensed](./LICENSE).
