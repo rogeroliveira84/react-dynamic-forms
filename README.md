@@ -1,6 +1,8 @@
-# react-dynamic-forms
+# ReactDynamicForms.js
 
-A react component to create dynamic forms developed using React.JS  
+[![Build Status](https://travis-ci.com/rogeroliveira84/react-dynamic-forms.svg?branch=master)](https://travis-ci.com/rogeroliveira84/react-dynamic-forms)
+
+A react component to create dynamic forms based on a config.json, developed using [React.JS](https://reactjs.org/)
 
 ## Roadmap
 
