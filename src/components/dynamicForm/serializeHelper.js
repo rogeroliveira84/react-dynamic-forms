@@ -14,10 +14,7 @@ export default function serialize(form) {
 
         // If a multi-select, get all selections
         if (field.type === 'select-multiple') {
-            for (var n = 0; n < field.options.length; n++) {
-                if (!field.options[n].selected) continue;
-                serialized.push({name: field.name, value: field.options[n].value });
-            }
+            serialized.push({name: field.name, value: [...field.selectedOptions].map(x => x.value) });
         }
         else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
             serialized.push({ name: field.name, value: field.value });

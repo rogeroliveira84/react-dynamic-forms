@@ -1,43 +1,132 @@
 {
-    "name": "form1",
+    "name": "Client Register",
     "fields": [
         {
             "id": "fullname",
             "label": "Full Name",
+            "description": "",
             "type": "text",
             "value": "",
-            "definition": "{'maxlength':'200'}",
+            "required": "true",
+            "placeholder": "",
+            "definition": {
+                "maxlength": "200"
+            },
             "defaultValue": ""
         },
         {
             "id": "dateOfBirth",
             "label": "Date Of Birth",
+            "description": "",
             "type": "date",
             "value": "",
+            "required": "false",
+            "placeholder": "",
             "defaultValue": ""
         },
         {
-            "id": "favorityNumber",
-            "label": "Favority Number",
+            "id": "favourityNumber",
+            "label": "Favourity Number",
+            "description": "",
             "type": "number",
             "value": "",
-            "definition": "{'step':'1', 'min':'0', 'max':'100'}",
+            "required": "false",
+            "placeholder": "",
+            "definition": {
+                "step": "1",
+                "min": "0",
+                "max": "100"
+            },
             "defaultValue": ""
         },
         {
             "id": "dateTime",
             "label": "Date Time",
+            "description": "",
             "type": "datetime-local",
             "value": "",
-            "definition": "{min':'2019-01-01T00:00','max'='2050-12-31T00:00'}",
+            "required": "false",
+            "placeholder": "",
+            "definition": {
+                "min": "2019-01-01T00:00",
+                "max": "2050-12-31T00:00"
+            },
+            "defaultValue": ""
+        },
+        {
+            "id": "checkbox",
+            "label": "Checkbox",
+            "description": "",
+            "type": "checkbox",
+            "value": "",
+            "required": "false",
+            "placeholder": "",
             "defaultValue": ""
         },
         {
             "id": "time",
             "label": "Time",
+            "description": "",
             "type": "time",
             "value": "",
-            "definition": "",
+            "required": "false",
+            "placeholder": "",
+            "defaultValue": ""
+        },
+        {
+            "id": "fruits",
+            "label": "Fruits",
+            "description": "",
+            "type": "array",
+            "value": "",
+            "required": "false",
+            "placeholder": "",
+            "definition": {
+                "options": [
+                    {
+                        "id": 1,
+                        "display": "Apple"
+                    },
+                    {
+                        "id": 2,
+                        "display": "Banana"
+                    },
+                    {
+                        "id": 3,
+                        "display": "Watermelon"
+                    }
+                ]
+            },
+            "defaultValue": ""
+        },
+        {
+            "id": "cities",
+            "label": "Cities",
+            "description": "",
+            "type": "multi-array",
+            "value": [],
+            "required": "false",
+            "placeholder": "",
+            "definition": {
+                "options": [
+                    {
+                        "id": "poa",
+                        "display": "Porto Alegre"
+                    },
+                    {
+                        "id": "rj",
+                        "display": "Rio de Janeiro"
+                    },
+                    {
+                        "id": "sp",
+                        "display": "Sao Paulo"
+                    },
+                    {
+                        "id": "bh",
+                        "display": "Belo Horizonte"
+                    }
+                ]
+            },
             "defaultValue": ""
         }
     ]

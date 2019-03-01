@@ -7,29 +7,34 @@ import '../../config/style.css';
 class DynamicForm extends Component {
   state = { config: this.props.config };
 
-  handleChange = (event) => {
-    console.log(`handleChange: ${event.target.value}`)
+  handleChange = (value) => {
+    console.log(`handleChange: ${value}`)
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     let data = {
       timeStamp: Date.now(),
-      data: serialize(event.target)
+      data: JSON.parse(serialize(event.target))
     }
     this.props.onSubmit(data);
   }
 
   render() {
     return (
-      <form onSubmit={(event) => this.handleSubmit(event)} name={this.state.config.name}>
+      <div className="card mx-auto mt-5">
+        <div className="card-header">{this.state.config.name}</div>
+        <div className="card-body">
+          <form onSubmit={(event) => this.handleSubmit(event)} name={this.state.config.name}>
 
-        {this.state.config.fields.map((field, i) => {
-            return <DynamicField key={i} {...field} onChange={(e) => this.handleChange(e)} />
-        })}
+            {this.state.config.fields.map((field, i) => {
+              return <DynamicField key={i} {...field} onChange={(e) => this.handleChange(e)} />
+            })}
 
-        <button type="submit">Submit</button>
-      </form>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
     );
   }
 }
