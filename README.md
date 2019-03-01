@@ -18,18 +18,18 @@ npm install --save @rogeroliveira84/react-dynamic-forms
 - :white_check_mark: 1.3 - Add caption and description to the inputs
 - :white_check_mark: 1.4 - Add input component types: text, number
 - :white_check_mark: 1.5 - Add onSubmit method prop
-- :white_check_mark: 2.1 - Add input component types: date (html5), datetime (html5), time (html5)
-- :white_check_mark: 2.2 - Add styles to the component
+- :white_check_mark: 1.6 - Add input component types: date (html5), datetime (html5), time (html5)
+- :white_check_mark: 1.7 - Add styles to the component
 
 ### Version 2
 
-- 3.1 - Add dropbox component
-- 3.2 - Add more options to the inputs: required, step, placeholder
+- 2.1 - Add dropbox component
+- 2.2 - Add more options to the inputs: required, step, placeholder
 
 ### Version 3
 
-- 4.1 - Add dynamic table type
-- 4.2 - Add CRUD to values of table type
+- 3.1 - Add dynamic table type
+- 3.2 - Add CRUD to values of table type
 
 ### License
 
