@@ -12,7 +12,7 @@ npm install --save @rogeroliveira84/react-dynamic-forms
 
 ## Roadmap
 
-### Version 1
+### Version 0.4.0
 
 - :white_check_mark: 1.1 - Define the dynamic-form-config: able to mount the forms from it
 - :white_check_mark: 1.2 - Add form
@@ -22,12 +22,12 @@ npm install --save @rogeroliveira84/react-dynamic-forms
 - :white_check_mark: 1.6 - Add input component types: date (html5), datetime (html5), time (html5)
 - :white_check_mark: 1.7 - Add styles to the component
 
-### Version 2
+### Version 0.5.0
 
 - :white_check_mark: 2.1 - Add dropbox component
 - :white_check_mark: 2.2 - Add more options to the inputs: required, placeholder
 
-### Version 3
+### Version 0.6.0
 
 - 3.1 - Add dynamic table type
 - 3.2 - Add CRUD to values of table type
