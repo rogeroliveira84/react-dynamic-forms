@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DynamicForm from './components/dynamicForm/dynamicForm';
-import configData from './config/form1.json';
+import configData from './config/simple.json';
 
 class App extends Component {
   submitHandler = (event) => {

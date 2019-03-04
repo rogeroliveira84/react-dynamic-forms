@@ -1,0 +1,54 @@
+{
+    "name": "Client Register",
+    "fields": [
+        {
+            "id": "fullname",
+            "label": "Full Name",
+            "description": "The full name of the client",
+            "type": "text",
+            "value": "",
+            "required": "true",
+            "placeholder": "Type your full name...",
+            "definition": {
+                "maxlength": "5"
+            },
+            "defaultValue": ""
+        },
+        {
+            "id": "dateOfBirth",
+            "label": "Date Of Birth",
+            "description": "",
+            "type": "date",
+            "value": "",
+            "required": "false",
+            "placeholder": "",
+            "defaultValue": ""
+        },
+        {
+            "id": "favorityFruits",
+            "label": "Favorite Fruits",
+            "description": "",
+            "type": "array",
+            "value": "",
+            "required": "false",
+            "placeholder": "",
+            "definition": {
+                "options": [
+                    {
+                        "id": 1,
+                        "display": "Apple"
+                    },
+                    {
+                        "id": 2,
+                        "display": "Banana"
+                    },
+                    {
+                        "id": 3,
+                        "display": "Watermelon"
+                    }
+                ]
+            },
+            "defaultValue": ""
+        }
+    ]
+}

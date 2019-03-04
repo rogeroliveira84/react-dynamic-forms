@@ -4,13 +4,13 @@
         {
             "id": "fullname",
             "label": "Full Name",
-            "description": "",
+            "description": "NAME OF THE PERSON",
             "type": "text",
             "value": "",
             "required": "true",
-            "placeholder": "",
+            "placeholder": "HERE YOU TYPE...",
             "definition": {
-                "maxlength": "200"
+                "maxlength": "5"
             },
             "defaultValue": ""
         },
