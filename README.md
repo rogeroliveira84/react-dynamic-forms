@@ -10,6 +10,98 @@ A [react](https://reactjs.org/) component to create dynamic forms based on a con
 npm install --save @rogeroliveira84/react-dynamic-forms
 ```
 
+## How to use
+
+* Use the react component call below:
+
+![alt text](https://github.com/rogeroliveira84/react-dynamic-forms/blob/master/.github/screenshot2.png)
+
+* The "configData" is a javaScript object that defines the form fields to be dynamically created:
+
+```javascript
+const configData = {
+    "name": "Client Register",
+    "fields": [
+        {
+            "id": "fullname",
+            "label": "Full Name",
+            "description": "The full name of the client",
+            "type": "text",
+            "value": "",
+            "required": "true",
+            "placeholder": "Type your full name...",
+            "definition": {
+                "maxlength": "5"
+            },
+            "defaultValue": ""
+        },
+        {
+            "id": "dateOfBirth",
+            "label": "Date Of Birth",
+            "description": "",
+            "type": "date",
+            "value": "",
+            "required": "false",
+            "placeholder": "",
+            "defaultValue": ""
+        },
+        {
+            "id": "favorityFruits",
+            "label": "Favorite Fruits",
+            "description": "",
+            "type": "array",
+            "value": "",
+            "required": "false",
+            "placeholder": "",
+            "definition": {
+                "options": [
+                    {
+                        "id": 1,
+                        "display": "Apple"
+                    },
+                    {
+                        "id": 2,
+                        "display": "Banana"
+                    },
+                    {
+                        "id": 3,
+                        "display": "Watermelon"
+                    }
+                ]
+            },
+            "defaultValue": ""
+        }
+    ]
+}
+```
+
+## Rendered Form
+![alt text](https://github.com/rogeroliveira84/react-dynamic-forms/blob/master/.github/screenshot1.png)
+
+
+## Output JSON
+
+```json
+{
+    "timeStamp": 1551747768847,
+    "data": [
+        {
+            "name": "fullname",
+            "value": "My name"
+        },
+        {
+            "name": "dateOfBirth",
+            "value": "1980-01-01"
+        },
+        {
+            "name": "favorityFruits",
+            "value": "1"
+        }
+    ]
+}
+```
+  
+
 ## Roadmap
 
 ### Version 0.4.0 
