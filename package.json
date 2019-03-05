@@ -19,7 +19,8 @@
     "test:watch": "react-scripts test --env=jsdom --watch",
     "test:coverage": "react-scripts test --env=jsdom --coverage",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -m ‘auto commit [ci skip]’ -d dist"
   },
   "eslintConfig": {
     "extends": "react-app"
