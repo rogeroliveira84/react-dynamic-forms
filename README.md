@@ -12,7 +12,7 @@ npm install --save @rogeroliveira84/react-dynamic-forms
 
 ## Roadmap
 
-### Version 0.4.0
+### Version 0.4.0 
 
 - :white_check_mark: 1.1 - Define the dynamic-form-config: able to mount the forms from it
 - :white_check_mark: 1.2 - Add form
