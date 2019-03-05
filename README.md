@@ -14,7 +14,7 @@ npm install --save @rogeroliveira84/react-dynamic-forms
 
 * Use the react component call below:
 
-![alt text](https://github.com/rogeroliveira84/react-dynamic-forms/blob/master/.github/screenshot2.png)
+![howToUse](https://raw.githubusercontent.com/rogeroliveira84/react-dynamic-forms/master/.github/screenshot2.png)
 
 * The "configData" is a javaScript object that defines the form fields to be dynamically created:
 
@@ -76,7 +76,7 @@ const configData = {
 ```
 
 ## Rendered Form
-![alt text](https://github.com/rogeroliveira84/react-dynamic-forms/blob/master/.github/screenshot1.png)
+![renderedForm](https://raw.githubusercontent.com/rogeroliveira84/react-dynamic-forms/master/.github/screenshot1.png)
 
 
 ## Output JSON
