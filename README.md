@@ -1,6 +1,6 @@
 # ReactDynamicForms.js
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rogeroliveira84/react-dynamic-forms/blob/master/LICENSE) [![Build Status](https://travis-ci.com/rogeroliveira84/react-dynamic-forms.svg?branch=master)](https://travis-ci.com/rogeroliveira84/react-dynamic-forms) [![npm version](https://badge.fury.io/js/%40rogeroliveira84%2Freact-dynamic-forms.svg)](https://badge.fury.io/js/%40rogeroliveira84%2Freact-dynamic-forms) ![GitHub contributors](https://img.shields.io/github/contributors/rogeroliveira84/react-dynamic-forms.svg?color=orange) ![npm](https://img.shields.io/npm/dt/@rogeroliveira84/react-dynamic-forms.svg?color=blue)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rogeroliveira84/react-dynamic-forms/blob/master/LICENSE) [![Build Status](https://travis-ci.com/rogeroliveira84/react-dynamic-forms.svg?branch=master)](https://travis-ci.com/rogeroliveira84/react-dynamic-forms) [![CircleCI Status](https://circleci.com/gh/rogeroliveira84/react-dynamic-forms.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/rogeroliveira84/react-dynamic-forms) [![npm version](https://badge.fury.io/js/%40rogeroliveira84%2Freact-dynamic-forms.svg)](https://badge.fury.io/js/%40rogeroliveira84%2Freact-dynamic-forms) ![GitHub contributors](https://img.shields.io/github/contributors/rogeroliveira84/react-dynamic-forms.svg?color=orange) ![npm](https://img.shields.io/npm/dt/@rogeroliveira84/react-dynamic-forms.svg?color=blue)
 
 A [react](https://reactjs.org/) component to create dynamic forms based on a config.json
 
@@ -12,7 +12,7 @@ npm install --save @rogeroliveira84/react-dynamic-forms
 
 ## Roadmap
 
-### Version 0.4.0
+### Version 0.4.0 
 
 - :white_check_mark: 1.1 - Define the dynamic-form-config: able to mount the forms from it
 - :white_check_mark: 1.2 - Add form
