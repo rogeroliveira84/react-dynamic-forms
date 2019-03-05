@@ -1,6 +1,6 @@
 {
   "name": "@rogeroliveira84/react-dynamic-forms",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "licence": "MIT",
   "description": "A react component to create dynamic forms based on a config.json",
   "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
