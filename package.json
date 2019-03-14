@@ -4,6 +4,16 @@
   "licence": "MIT",
   "description": "A react component to create dynamic forms based on a config.json",
   "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
+    "author": "Roger Oliveira <rogeroliveira84@gmail.com> (https://www.linkedin.com/in/rogeroliveira/)",
+  "contributors": [
+    "Roger Oliveira <rogeroliveira84@gmail.com> (https://github.com/rogeroliveira84)"
+  ],
+  "keywords": [
+  "javascript",
+  "react",
+  "dynamic"
+  ],
+  "repository": "github:rogeroliveira84/react-dynamic-forms",
   "private": false,
   "license": "MIT",
   "dependencies": {
