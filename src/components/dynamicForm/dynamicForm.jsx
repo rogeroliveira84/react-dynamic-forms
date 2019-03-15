@@ -5,8 +5,7 @@ import DynamicField from '../dynamicField/dynamicField';
 import '../../config/style.css';
 
 class DynamicForm extends Component {
-  state = { config: this.props.config };
-
+  
   handleChange = (event) => {
     console.log(`handleChange: ${event.target.value}`)
   }
@@ -21,15 +20,19 @@ class DynamicForm extends Component {
   }
 
   render() {
+    const { config } = this.props;
     return (
-      <form onSubmit={(event) => this.handleSubmit(event)} name={this.state.config.name}>
-
-        {this.state.config.fields.map((field, i) => {
-            return <DynamicField key={i} {...field} onChange={(e) => this.handleChange(e)} />
-        })}
-
-        <button type="submit">Submit</button>
-      </form>
+      <div className="card mx-auto mt-5">
+        <div className="card-header">{config.name}</div>
+        <div className="card-body">
+          <form onSubmit={(event) => this.handleSubmit(event)} name={config.name}>
+            {config.fields.map((field, i) => {
+              return <DynamicField key={field.id} {...field} onChange={(e) => this.handleChange(e)} />
+            })}
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
     );
   }
 }

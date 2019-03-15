@@ -2,10 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class DynamicField extends Component {
-  state = { value: this.props.defaultValue };
+  onChange = event => {
+    const { target, name } = event;
 
-  onChange = value => {
-    this.setState({ value: value });
+    let value = undefined; 
+    switch (target.type) {
+      case 'checkbox':
+        value = target.checked
+        break;
+      case 'select-multiple':
+        value = [...target.selectedOptions].map(x => x.value)
+      break;
+      default:
+        value = target.value;
+        break;
+    }
+
+    this.setState({ [name]: value });
     this.props.onChange(value);
   }
   render() {
@@ -24,6 +37,8 @@ class DynamicField extends Component {
 DynamicField.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  definition: PropTypes.object,
+  required: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   label: PropTypes.string.isRequired,
   placeHolder: PropTypes.string
 };
