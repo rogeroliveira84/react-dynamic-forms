@@ -5,7 +5,6 @@ import DynamicField from '../dynamicField/dynamicField';
 import '../../config/style.css';
 
 class DynamicForm extends Component {
-  state = { config: this.props.config };
 
   handleChange = (value) => {
     console.log(`handleChange: ${value}`)
@@ -21,13 +20,14 @@ class DynamicForm extends Component {
   }
 
   render() {
+    const { config } = this.props;
     return (
       <div className="card mx-auto mt-5">
-        <div className="card-header">{this.state.config.name}</div>
+        <div className="card-header">{config.name}</div>
         <div className="card-body">
-          <form onSubmit={(event) => this.handleSubmit(event)} name={this.state.config.name}>
+          <form onSubmit={(event) => this.handleSubmit(event)} name={config.name}>
 
-            {this.state.config.fields.map((field, i) => {
+            {config.fields.map((field, i) => {
               return <DynamicField key={i} {...field} onChange={(e) => this.handleChange(e)} />
             })}
 
