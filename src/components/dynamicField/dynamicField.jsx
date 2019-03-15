@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 class DynamicField extends Component {
 
   onChange = event => {
-    const target = event.target;
-    const name = target.name;
+    const { target, name } = event;
 
     let value = undefined; 
     switch (target.type) {
@@ -13,18 +12,18 @@ class DynamicField extends Component {
         value = target.checked
         break;
       case 'select-multiple':
-        value = [...target.selectedOptions].map(x => x.value)
-      break;
+       value = [...target.selectedOptions].map(x => x.value)
+       break;
       default:
         value = target.value;
         break;
     }
-
     this.setState({ [name]: value });
     this.props.onChange(value);
+    
   }
 
-  fieldSelector = (props) => {
+  fieldSelector = props => {
     switch (props.type) {
       case 'text':
       case 'date':
@@ -93,7 +92,7 @@ DynamicField.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   definition: PropTypes.object,
-  required: PropTypes.bool,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   label: PropTypes.string.isRequired,
   placeHolder: PropTypes.string
 };
