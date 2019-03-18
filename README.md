@@ -4,6 +4,8 @@
 
 A [react](https://reactjs.org/) component to create dynamic forms based on a config.json
 
+## Demo online [react-dynamic-forms on heroku](https://react-dynamic-forms.herokuapp.com/)
+
 ## Install
 
 ```bash
