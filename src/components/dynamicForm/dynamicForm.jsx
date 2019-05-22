@@ -1,47 +1,40 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import serialize from './serializeHelper';
 import DynamicField from '../dynamicField/dynamicField';
 import '../../config/style.css';
 
-class DynamicForm extends Component {
+const DynamicForm = (props) => {
 
-  handleChange = (value) => {
-    console.log(`handleChange: ${value}`)
-  }
+    const { config } = props;
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    let data = {
-      timeStamp: Date.now(),
-      data: JSON.parse(serialize(event.target))
+    const handleChange = (value) => {
+        console.log(`handleChange: ${value}`)
     }
-    this.props.onSubmit(data);
-  }
 
-  render() {
-    const { config } = this.props;
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let data = {
+            timeStamp: Date.now(),
+            data: JSON.parse(serialize(event.target))
+        }
+        props.onSubmit(data);
+    }
+
     return (
-      <div className="card mx-auto mt-5">
-        <div className="card-header">{config.name}</div>
-        <div className="card-body">
-          <form onSubmit={(event) => this.handleSubmit(event)} name={config.name}>
+        <div className="card mx-auto mt-5">
+            <div className="card-header">{config.name}</div>
+            <div className="card-body">
+                <form onSubmit={handleSubmit} name={config.name}>
 
-            {config.fields.map((field, i) => {
-              return <DynamicField key={i} {...field} onChange={(e) => this.handleChange(e)} />
-            })}
+                    {config.fields.map((field, i) => {
+                        return <DynamicField key={i} {...field} onChange={handleChange} />
+                    })}
 
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </form>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
-      </div>
     );
-  }
 }
-
-DynamicForm.propTypes = {
-  config: PropTypes.any.isRequired,
-  onSubmit: PropTypes.func
-};
 
 export default DynamicForm;

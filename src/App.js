@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DynamicForm from './components/dynamicForm/dynamicForm';
-import configData from './config/simple.json';
+import configData from './config/complete.json';
 
-class App extends Component {
-  submitHandler = (event) => {
-    let json = JSON.stringify(event, null, 4);
-    console.log(json);
-    document.getElementById('result').innerText = json;
-  }
-  render() {
+const App = () => {
+
+    const submitHandler = event => {
+        let json = JSON.stringify(event, null, 4);
+        console.log(json);
+        document.getElementById('result').innerText = json;
+    }
+
     return (
-      <div className="container">
+        <div className="container">
 
-        <DynamicForm config={configData} onSubmit={(event) => this.submitHandler(event)} />
+            <DynamicForm config={configData} onSubmit={submitHandler} />
 
-        <div className="card mx-auto mt-5">
-          <div className="card-header">Output</div>
-          <div className="card-body">
-            <pre id="result">Press Submit to see the output...</pre>
-          </div>
+            <div className="card mx-auto mt-5">
+                <div className="card-header">Output</div>
+                <div className="card-body">
+                    <pre id="result">Press Submit to see the output...</pre>
+                </div>
+            </div>
+
         </div>
-
-      </div>
     );
-  }
 }
 
 export default App;
