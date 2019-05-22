@@ -2,7 +2,7 @@ import React, {useReducer} from 'react';
 import PropTypes from 'prop-types';
 
 const DynamicField = (props) => {
-
+    // eslint-disable-next-line
     const [InputValue, setInputValue] = useReducer((state, newState) => ({...state, ...newState}), {});
 
     const onChange = event => {
