@@ -3,15 +3,15 @@ import serialize from './serializeHelper';
 import DynamicField from '../dynamicField/dynamicField';
 import '../../config/style.css';
 
-const DynamicForm = (props) => {
+const DynamicForm = props => {
 
     const { config } = props;
 
-    const handleChange = (value) => {
+    const handleChange = value => {
         console.log(`handleChange: ${value}`)
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = event => {
         event.preventDefault();
         let data = {
             timeStamp: Date.now(),
