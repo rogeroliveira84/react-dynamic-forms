@@ -77,6 +77,19 @@ const configData = {
 }
 ```
 
+
+## Supported Field Types
+
+* text
+* date
+* datetime-local
+* time
+* number
+* checkbox
+* array (for single-choice list)
+* multi-array (multi-choice list)
+
+
 ## Rendered Form
 ![renderedForm](https://raw.githubusercontent.com/rogeroliveira84/react-dynamic-forms/master/.github/screenshot1.png)
 
