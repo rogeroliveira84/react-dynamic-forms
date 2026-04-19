@@ -1,6 +1,6 @@
 # CLAUDE.md — React Dynamic Forms
 
-Project-level context for Claude Code sessions. Read this first.
+Project-level context for AI coding agents. Read this first.
 
 ## What this project is
 

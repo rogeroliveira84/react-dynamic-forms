@@ -3096,7 +3096,7 @@ git commit -m "ci: add Changesets + release workflow"
 ```markdown
 # CLAUDE.md — React Dynamic Forms
 
-Project-level context for Claude Code sessions. Read this first.
+Project-level context for AI coding agents. Read this first.
 
 ## What this project is
 
@@ -3949,8 +3949,6 @@ Complete rebirth of `react-dynamic-forms` as a modern pnpm/Turborepo monorepo sh
 - Bootstrap removed → shadcn (themeable via CSS variables)
 
 Ships as v1.0.0 via the linked Changeset.
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
 )"
 ```

@@ -2,8 +2,8 @@
 
 **Status:** Draft v1
 **Date:** 2026-04-19
-**Author:** Roger Oliveira (with Claude)
-**Target audience:** contributors, future maintainers, Claude sessions
+**Author:** Roger Oliveira
+**Target audience:** contributors, future maintainers, AI coding agents
 
 ---
 
@@ -270,7 +270,7 @@ A separate `README.pt-br.md` in Portuguese is a nice-to-have for early organic r
 
 ## 11. `.claude/` folder contents
 
-Purpose: make the project navigable by Claude Code sessions AND onboard human contributors.
+Purpose: make the project navigable by AI coding agents AND onboard human contributors.
 
 ```
 .claude/
