@@ -19,7 +19,29 @@ jobs:
           node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
+
+      - name: Configure npm registry auth
+        run: |
+          if [ -z "${NPM_TOKEN:-}" ]; then
+            echo "::error::NPM_TOKEN secret is not set on this repo. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify npm identity
+        run: |
+          WHOAMI=$(npm whoami 2>&1 || echo "ANON")
+          echo "npm whoami → ${WHOAMI}"
+          if [ "${WHOAMI}" = "ANON" ] || [[ "${WHOAMI}" == *"Unable to authenticate"* ]]; then
+            echo "::error::npm auth failed. Your NPM_TOKEN is invalid or expired. Create a new 'Automation' or 'Granular' token at https://www.npmjs.com/settings/<username>/tokens with publish access to @rogeroliveira84 scope."
+            exit 1
+          fi
+
       - run: pnpm install --frozen-lockfile
+
       - uses: changesets/action@v1
         with:
           publish: pnpm release
@@ -27,3 +49,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
