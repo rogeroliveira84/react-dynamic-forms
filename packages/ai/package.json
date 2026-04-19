@@ -1,18 +1,54 @@
 {
   "name": "@rogeroliveira84/react-dynamic-forms-ai",
-  "version": "0.0.0",
-  "description": "AI-powered schema generation for react-dynamic-forms (v2 preview).",
+  "version": "0.1.0",
+  "description": "AI-powered schema generation for @rogeroliveira84/react-dynamic-forms — prompt or TS or JSON sample to Zod schema.",
   "license": "MIT",
+  "author": "Roger Oliveira <rogeroliveira84@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rogeroliveira84/react-dynamic-forms",
+    "directory": "packages/ai"
+  },
+  "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
+  "keywords": ["react", "forms", "zod", "ai", "vercel-ai-sdk", "anthropic", "openai", "claude"],
   "type": "module",
-  "private": true,
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "sideEffects": false,
   "scripts": {
     "build": "tsup",
-    "typecheck": "tsc --noEmit"
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
   },
+  "peerDependencies": {
+    "@rogeroliveira84/react-dynamic-forms": "workspace:*",
+    "ai": "^4.0.0",
+    "zod": "^3.23.0"
+  },
+  "peerDependenciesMeta": {
+    "ai": { "optional": false }
+  },
+  "dependencies": {},
   "devDependencies": {
+    "@rogeroliveira84/react-dynamic-forms": "workspace:*",
+    "ai": "^4.0.14",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5",
+    "zod": "^3.23.8"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

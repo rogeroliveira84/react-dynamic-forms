@@ -1,0 +1,14 @@
+@import '@rogeroliveira84/react-dynamic-forms-ui/styles.css';
+
+html {
+  font-family: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  margin: 0;
+}
+
+.mono {
+  font-family: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+}

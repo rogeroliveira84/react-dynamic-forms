@@ -14,8 +14,14 @@ export type FieldKind =
   | 'multi-enum'
   | 'object'
   | 'array'
+  | 'file'
 
 export type EnumOption = { value: string | number; label: string }
+
+export type ShowIfRule = {
+  field: string
+  equals: string | number | boolean
+}
 
 type BaseFieldSpec = {
   name: string
@@ -26,6 +32,7 @@ type BaseFieldSpec = {
   defaultValue?: unknown
   disabled?: boolean
   hidden?: boolean
+  showIf?: ShowIfRule
 }
 
 export type TextLikeFieldSpec = BaseFieldSpec & {
@@ -67,6 +74,13 @@ export type ArrayFieldSpec = BaseFieldSpec & {
   maxItems?: number
 }
 
+export type FileFieldSpec = BaseFieldSpec & {
+  kind: 'file'
+  accept?: string
+  maxSize?: number
+  multiple?: boolean
+}
+
 export type FieldSpec =
   | TextLikeFieldSpec
   | NumberFieldSpec
@@ -75,6 +89,7 @@ export type FieldSpec =
   | EnumFieldSpec
   | ObjectFieldSpec
   | ArrayFieldSpec
+  | FileFieldSpec
 
 export type InternalSchema = {
   title?: string
