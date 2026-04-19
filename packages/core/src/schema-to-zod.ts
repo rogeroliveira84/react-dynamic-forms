@@ -1,6 +1,13 @@
 import { z, type ZodTypeAny } from 'zod'
 import type { FieldSpec, InternalSchema } from './internal-schema'
 
+function enumUnion(values: ZodTypeAny[]): ZodTypeAny {
+  if (values.length === 0) return z.never()
+  if (values.length === 1) return values[0] as ZodTypeAny
+  const [first, second, ...rest] = values as [ZodTypeAny, ZodTypeAny, ...ZodTypeAny[]]
+  return z.union([first, second, ...rest])
+}
+
 function fieldToZod(f: FieldSpec): ZodTypeAny {
   let s: ZodTypeAny
   switch (f.kind) {
@@ -39,24 +46,13 @@ function fieldToZod(f: FieldSpec): ZodTypeAny {
       s = z.string()
       break
     case 'enum': {
-      const values = f.options.map((o) => z.literal(o.value))
-      s =
-        values.length >= 2
-          ? z.union(values as [ZodTypeAny, ZodTypeAny, ...ZodTypeAny[]])
-          : values.length === 1
-            ? values[0]!
-            : z.never()
+      const values: ZodTypeAny[] = f.options.map((o) => z.literal(o.value))
+      s = enumUnion(values)
       break
     }
     case 'multi-enum': {
-      const values = f.options.map((o) => z.literal(o.value))
-      const inner =
-        values.length >= 2
-          ? z.union(values as [ZodTypeAny, ZodTypeAny, ...ZodTypeAny[]])
-          : values.length === 1
-            ? values[0]!
-            : z.never()
-      s = z.array(inner)
+      const values: ZodTypeAny[] = f.options.map((o) => z.literal(o.value))
+      s = z.array(enumUnion(values))
       break
     }
     case 'array':
