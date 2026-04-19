@@ -1,52 +1,37 @@
 {
-    "name": "@rogeroliveira84/react-dynamic-forms",
-    "version": "0.5.5",
-    "licence": "MIT",
-    "description": "A react component to create dynamic forms based on a config.json",
-    "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
-    "author": "Roger Oliveira <rogeroliveira84@gmail.com> (https://www.linkedin.com/in/rogeroliveira/)",
-    "contributors": [
-        "Roger Oliveira <rogeroliveira84@gmail.com> (https://github.com/rogeroliveira84)",
-        "Vitor Boccio (https://github.com/vitorboccio)"
-    ],
-    "keywords": [
-        "javascript",
-        "react",
-        "dynamic"
-    ],
-    "repository": "github:rogeroliveira84/react-dynamic-forms",
-    "private": false,
-    "license": "MIT",
-    "dependencies": {
-        "bootstrap": "^4.3.1",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6",
-        "react-scripts": "^5.0.1",
-        "eslint-plugin-react-hooks": "^1.6.1"
-    },
-    "devDependencies": {
-        "enzyme": "^3.10.0",
-        "enzyme-adapter-react-16": "^1.14.0",
-        "enzyme-to-json": "^3.3.5",
-        "react-test-renderer": "^16.8.6"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "test:watch": "react-scripts test --env=jsdom --watch",
-        "test:coverage": "react-scripts test --env=jsdom --coverage",
-        "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-        "eject": "react-scripts eject",
-        "deploy": "gh-pages -m ‘auto commit [ci skip]’ -d dist"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": [
-        ">0.2%",
-        "not dead",
-        "not ie <= 11",
-        "not op_mini all"
-    ]
+  "name": "react-dynamic-forms-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo root for @rogeroliveira84/react-dynamic-forms — Zod-powered dynamic React forms.",
+  "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rogeroliveira84/react-dynamic-forms"
+  },
+  "license": "MIT",
+  "author": "Roger Oliveira <rogeroliveira84@gmail.com>",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=./packages/* && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9",
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "prettier": "^3.3.3",
+    "turbo": "^2.3.0",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.15.0"
+  }
 }

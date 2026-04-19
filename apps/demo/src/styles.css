@@ -1,0 +1,12 @@
+@import '@rogeroliveira84/react-dynamic-forms-ui/styles.css';
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  @apply mx-auto max-w-2xl px-4 py-10;
+}
