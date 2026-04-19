@@ -14,7 +14,7 @@
     "@rogeroliveira84/react-dynamic-forms": "workspace:*",
     "@rogeroliveira84/react-dynamic-forms-ai": "workspace:*",
     "@rogeroliveira84/react-dynamic-forms-ui": "workspace:*",
-    "ai": "^4.0.14",
+    "ai": "^5.0.52",
     "geist": "^1.3.1",
     "lucide-react": "^0.460.0",
     "next": "^15.1.0",
