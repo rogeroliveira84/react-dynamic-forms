@@ -48,15 +48,14 @@
     "lint": "eslint src"
   },
   "peerDependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
+    "react-hook-form": "^7.53.0",
     "zod": "^3.23.0"
   },
-  "dependencies": {
-    "@hookform/resolvers": "^3.9.1",
-    "react-hook-form": "^7.53.2"
-  },
   "devDependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -66,6 +65,7 @@
     "jsdom": "^25.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.53.2",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
     "vitest": "^2.1.5",

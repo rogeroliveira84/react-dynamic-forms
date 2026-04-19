@@ -1,24 +1,13 @@
 import type { BooleanFieldSpec } from '@rogeroliveira84/react-dynamic-forms'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Checkbox } from '../primitives/checkbox'
 import { FieldWrapper } from './field-wrapper'
-import { getErrorMessage } from './get-error'
+import { useFieldState } from './use-field-state'
 
 export function BooleanField({ field }: { field: BooleanFieldSpec }) {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext()
-  const error = getErrorMessage(errors as Record<string, unknown>, field.name)
+  const { control, wrapperProps } = useFieldState(field)
   return (
-    <FieldWrapper
-      id={field.name}
-      label={field.label ?? field.name}
-      description={field.description}
-      required={field.required}
-      error={error}
-      layout="label-inline"
-    >
+    <FieldWrapper {...wrapperProps} layout="label-inline">
       <Controller
         control={control}
         name={field.name}

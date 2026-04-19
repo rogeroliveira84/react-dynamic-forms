@@ -1,37 +1,21 @@
 import type { TextLikeFieldSpec } from '@rogeroliveira84/react-dynamic-forms'
-import { useFormContext } from 'react-hook-form'
 import { Input } from '../primitives/input'
 import { FieldWrapper } from './field-wrapper'
-import { getErrorMessage } from './get-error'
+import { useFieldState } from './use-field-state'
 
-const HTML_TYPE_MAP: Record<string, string> = {
+const HTML_TYPE: Record<Exclude<TextLikeFieldSpec['kind'], 'textarea'>, string> = {
   text: 'text',
   email: 'email',
   password: 'password',
   url: 'url',
-  textarea: 'text',
 }
 
 export function TextField({ field }: { field: TextLikeFieldSpec }) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext()
-  const error = getErrorMessage(errors as Record<string, unknown>, field.name)
+  const { register, wrapperProps } = useFieldState(field)
+  const type = field.kind === 'textarea' ? 'text' : HTML_TYPE[field.kind]
   return (
-    <FieldWrapper
-      id={field.name}
-      label={field.label ?? field.name}
-      description={field.description}
-      required={field.required}
-      error={error}
-    >
-      <Input
-        id={field.name}
-        type={HTML_TYPE_MAP[field.kind] ?? 'text'}
-        placeholder={field.placeholder}
-        {...register(field.name)}
-      />
+    <FieldWrapper {...wrapperProps}>
+      <Input id={field.name} type={type} placeholder={field.placeholder} {...register(field.name)} />
     </FieldWrapper>
   )
 }

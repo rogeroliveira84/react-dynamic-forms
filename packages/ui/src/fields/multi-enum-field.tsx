@@ -1,29 +1,19 @@
 import type { EnumFieldSpec } from '@rogeroliveira84/react-dynamic-forms'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Checkbox } from '../primitives/checkbox'
 import { Label } from '../primitives/label'
 import { FieldWrapper } from './field-wrapper'
-import { getErrorMessage } from './get-error'
+import { useFieldState } from './use-field-state'
 
 export function MultiEnumField({ field }: { field: EnumFieldSpec }) {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext()
-  const error = getErrorMessage(errors as Record<string, unknown>, field.name)
+  const { control, wrapperProps } = useFieldState(field)
   return (
-    <FieldWrapper
-      id={field.name}
-      label={field.label ?? field.name}
-      description={field.description}
-      required={field.required}
-      error={error}
-    >
+    <FieldWrapper {...wrapperProps}>
       <Controller
         control={control}
         name={field.name}
         render={({ field: rhf }) => {
-          const value: (string | number)[] = Array.isArray(rhf.value) ? rhf.value : []
+          const value: readonly (string | number)[] = Array.isArray(rhf.value) ? rhf.value : []
           const toggle = (v: string | number) => {
             const has = value.includes(v)
             rhf.onChange(has ? value.filter((x) => x !== v) : [...value, v])

@@ -1,4 +1,5 @@
 import type { FieldSpec, InternalSchema, EnumOption } from '../internal-schema'
+import { buildBase, numberExtras, stringExtras } from './_shared'
 
 export type JsonSchema = {
   type?: string | readonly string[]
@@ -20,11 +21,13 @@ export type JsonSchema = {
 }
 
 function jsonFieldFromSchema(name: string, schema: JsonSchema, required: boolean): FieldSpec {
-  const extras: { description?: string; label?: string; defaultValue?: unknown } = {}
-  if (schema.description) extras.description = schema.description
-  if (schema.title) extras.label = schema.title
-  if (schema.default !== undefined) extras.defaultValue = schema.default
-  const base = { name, required, ...extras }
+  const base = buildBase({
+    name,
+    required,
+    ...(schema.title ? { label: schema.title } : {}),
+    ...(schema.description ? { description: schema.description } : {}),
+    ...(schema.default !== undefined ? { defaultValue: schema.default } : {}),
+  })
 
   if (schema.enum) {
     const options: EnumOption[] = schema.enum.map((v) => ({ value: v, label: String(v) }))
@@ -41,18 +44,22 @@ function jsonFieldFromSchema(name: string, schema: JsonSchema, required: boolean
     if (fmt === 'date-time') return { ...base, kind: 'datetime' }
     if (fmt === 'time') return { ...base, kind: 'time' }
     if (fmt === 'password') return { ...base, kind: 'password' }
-    const strExtras: { minLength?: number; maxLength?: number; pattern?: string } = {}
-    if (schema.minLength !== undefined) strExtras.minLength = schema.minLength
-    if (schema.maxLength !== undefined) strExtras.maxLength = schema.maxLength
-    if (schema.pattern) strExtras.pattern = schema.pattern
-    return { ...base, kind: 'text', ...strExtras }
+    return {
+      ...base,
+      kind: 'text',
+      ...stringExtras({
+        minLength: schema.minLength,
+        maxLength: schema.maxLength,
+        pattern: schema.pattern,
+      }),
+    }
   }
   if (type === 'number' || type === 'integer') {
-    const numExtras: { min?: number; max?: number; step?: number } = {}
-    if (schema.minimum !== undefined) numExtras.min = schema.minimum
-    if (schema.maximum !== undefined) numExtras.max = schema.maximum
-    if (schema.multipleOf !== undefined) numExtras.step = schema.multipleOf
-    return { ...base, kind: 'number', ...numExtras }
+    return {
+      ...base,
+      kind: 'number',
+      ...numberExtras({ min: schema.minimum, max: schema.maximum, step: schema.multipleOf }),
+    }
   }
   if (type === 'boolean') {
     return { ...base, kind: 'boolean' }
@@ -88,11 +95,10 @@ export function jsonSchemaToInternalSchema(schema: JsonSchema): InternalSchema {
   }
   const props = schema.properties ?? {}
   const req = new Set(schema.required ?? [])
-  const extras: { title?: string; description?: string } = {}
-  if (schema.title) extras.title = schema.title
-  if (schema.description) extras.description = schema.description
-  return {
-    ...extras,
+  const out: InternalSchema = {
     fields: Object.entries(props).map(([k, v]) => jsonFieldFromSchema(k, v, req.has(k))),
   }
+  if (schema.title) out.title = schema.title
+  if (schema.description) out.description = schema.description
+  return out
 }

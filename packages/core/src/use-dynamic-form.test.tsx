@@ -27,4 +27,24 @@ describe('useDynamicForm', () => {
     expect(typeof result.current.form.register).toBe('function')
     expect(typeof result.current.form.handleSubmit).toBe('function')
   })
+
+  it('applies defaultValues to the form state', () => {
+    const { result } = renderHook(() =>
+      useDynamicForm<{ name: string }>({
+        schema: z.object({ name: z.string() }),
+        defaultValues: { name: 'Roger' },
+      }),
+    )
+    expect(result.current.form.getValues('name')).toBe('Roger')
+  })
+
+  it('memoizes internal + zod schemas across renders when input identity is stable', () => {
+    const schema = z.object({ a: z.string() })
+    const { result, rerender } = renderHook(() => useDynamicForm({ schema }))
+    const firstInternal = result.current.internalSchema
+    const firstZod = result.current.zodSchema
+    rerender()
+    expect(result.current.internalSchema).toBe(firstInternal)
+    expect(result.current.zodSchema).toBe(firstZod)
+  })
 })

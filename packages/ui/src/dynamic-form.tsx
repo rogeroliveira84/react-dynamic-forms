@@ -1,4 +1,4 @@
-import { FormProvider, type FieldValues, type SubmitHandler } from 'react-hook-form'
+import { FormProvider, type FieldValues, type SubmitHandler, type DefaultValues } from 'react-hook-form'
 import { useDynamicForm, type SchemaInput } from '@rogeroliveira84/react-dynamic-forms'
 import { Button } from './primitives/button'
 import { FieldResolver } from './fields/field-resolver'
@@ -7,29 +7,32 @@ import { cn } from './utils/cn'
 export type DynamicFormProps<TValues extends FieldValues = FieldValues> = {
   schema?: SchemaInput
   onSubmit: SubmitHandler<TValues>
-  defaultValues?: Parameters<typeof useDynamicForm<TValues>>[0]['defaultValues']
+  defaultValues?: DefaultValues<TValues>
   submitLabel?: string
   className?: string
   title?: string
   description?: string
   showSubmit?: boolean
-  /** Legacy prop from v0.5 — renamed to `schema`. Kept for 1 major version. */
+  /** @deprecated Renamed to `schema`. Kept working with a warning through v1; removed in v2. */
   config?: SchemaInput
 }
 
 export function DynamicForm<TValues extends FieldValues = FieldValues>(
   props: DynamicFormProps<TValues>,
 ) {
-  const actualSchema = props.schema ?? props.config
-  if (!actualSchema) throw new Error('DynamicForm requires a `schema` prop.')
-  if (props.config && !props.schema && typeof console !== 'undefined') {
+  const schemaInput = props.schema ?? props.config
+  if (!schemaInput) {
+    console.error('[react-dynamic-forms] <DynamicForm> requires a `schema` prop; nothing rendered.')
+    return null
+  }
+  if (props.config && !props.schema) {
     console.warn(
       '[react-dynamic-forms] `config` prop is deprecated — rename to `schema`. See migration guide.',
     )
   }
 
   const { form, internalSchema } = useDynamicForm<TValues>({
-    schema: actualSchema,
+    schema: schemaInput,
     defaultValues: props.defaultValues,
   })
 

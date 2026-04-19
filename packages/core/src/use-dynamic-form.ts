@@ -7,8 +7,9 @@ import {
   type DefaultValues,
 } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { ZodTypeAny } from 'zod'
+import type { ZodType } from 'zod'
 import { detectAndConvert, type SchemaInput } from './adapters/detect'
+import { isZodLike } from './adapters/is-zod'
 import { internalToZod } from './schema-to-zod'
 import type { InternalSchema } from './internal-schema'
 
@@ -21,29 +22,24 @@ export type UseDynamicFormOptions<TValues extends FieldValues = FieldValues> = {
 export type UseDynamicFormReturn<TValues extends FieldValues = FieldValues> = {
   form: UseFormReturn<TValues>
   internalSchema: InternalSchema
-  zodSchema: ZodTypeAny
-}
-
-function isZodLike(input: unknown): boolean {
-  return (
-    typeof input === 'object' &&
-    input !== null &&
-    '_def' in (input as object) &&
-    'parse' in (input as object)
-  )
+  zodSchema: ZodType<unknown>
 }
 
 export function useDynamicForm<TValues extends FieldValues = FieldValues>(
   options: UseDynamicFormOptions<TValues>,
 ): UseDynamicFormReturn<TValues> {
   const internalSchema = useMemo(() => detectAndConvert(options.schema), [options.schema])
-  const zodSchema = useMemo(() => {
-    if (isZodLike(options.schema)) return options.schema as ZodTypeAny
-    return internalToZod(internalSchema)
-  }, [options.schema, internalSchema])
+  const zodSchema = useMemo<ZodType<unknown>>(
+    () =>
+      isZodLike(options.schema)
+        ? (options.schema as ZodType<unknown>)
+        : (internalToZod(internalSchema) as ZodType<unknown>),
+    [options.schema, internalSchema],
+  )
+  const resolver = useMemo(() => zodResolver(zodSchema), [zodSchema])
 
   const form = useForm<TValues>({
-    resolver: zodResolver(zodSchema),
+    resolver,
     defaultValues: options.defaultValues,
     mode: options.mode ?? 'onBlur',
   })

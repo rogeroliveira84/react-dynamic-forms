@@ -1,8 +1,5 @@
 export { useDynamicForm } from './use-dynamic-form'
-export type {
-  UseDynamicFormOptions,
-  UseDynamicFormReturn,
-} from './use-dynamic-form'
+export type { UseDynamicFormOptions, UseDynamicFormReturn } from './use-dynamic-form'
 
 export { detectAndConvert } from './adapters/detect'
 export type { SchemaInput } from './adapters/detect'
@@ -11,9 +8,7 @@ export { zodToInternalSchema } from './adapters/zod'
 export { jsonSchemaToInternalSchema } from './adapters/json-schema'
 export type { JsonSchema } from './adapters/json-schema'
 export { legacyConfigToInternalSchema } from './adapters/legacy'
-export type { LegacyConfig, LegacyField, LegacyOption, LegacyDefinition } from './adapters/legacy'
-
-export { internalToZod } from './schema-to-zod'
+export type { LegacyConfig, LegacyField, LegacyOption } from './adapters/legacy'
 
 export type {
   InternalSchema,
@@ -29,5 +24,3 @@ export type {
   ObjectFieldSpec,
   ArrayFieldSpec,
 } from './internal-schema'
-
-export const VERSION = '1.0.0-next.0'

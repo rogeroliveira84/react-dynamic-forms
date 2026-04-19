@@ -1,8 +1,7 @@
 import type { DateFieldSpec } from '@rogeroliveira84/react-dynamic-forms'
-import { useFormContext } from 'react-hook-form'
 import { Input } from '../primitives/input'
 import { FieldWrapper } from './field-wrapper'
-import { getErrorMessage } from './get-error'
+import { useFieldState } from './use-field-state'
 
 const HTML_TYPE: Record<DateFieldSpec['kind'], string> = {
   date: 'date',
@@ -11,19 +10,9 @@ const HTML_TYPE: Record<DateFieldSpec['kind'], string> = {
 }
 
 export function DateField({ field }: { field: DateFieldSpec }) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext()
-  const error = getErrorMessage(errors as Record<string, unknown>, field.name)
+  const { register, wrapperProps } = useFieldState(field)
   return (
-    <FieldWrapper
-      id={field.name}
-      label={field.label ?? field.name}
-      description={field.description}
-      required={field.required}
-      error={error}
-    >
+    <FieldWrapper {...wrapperProps}>
       <Input
         id={field.name}
         type={HTML_TYPE[field.kind]}

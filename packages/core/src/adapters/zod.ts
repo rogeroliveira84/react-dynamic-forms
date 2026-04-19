@@ -1,38 +1,30 @@
 import { z, type ZodTypeAny, type ZodObject, type ZodRawShape } from 'zod'
 import type { FieldSpec, InternalSchema, EnumOption } from '../internal-schema'
+import { buildBase, numberExtras, stringExtras } from './_shared'
 
-type UnwrapResult = { schema: ZodTypeAny; required: boolean; description: string | undefined }
+type UnwrapResult = { schema: ZodTypeAny; required: boolean; description?: string }
 
 function unwrap(schema: ZodTypeAny): UnwrapResult {
   let current = schema
   let required = true
   let description = schema.description
 
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    if (current instanceof z.ZodOptional || current instanceof z.ZodNullable) {
-      required = false
-      current = current._def.innerType
-      if (!description) description = current.description
-      continue
-    }
-    if (current instanceof z.ZodDefault) {
-      current = current._def.innerType
-      if (!description) description = current.description
-      continue
-    }
-    if (current instanceof z.ZodEffects) {
-      current = current._def.schema
-      if (!description) description = current.description
-      continue
-    }
-    break
+  while (
+    current instanceof z.ZodOptional ||
+    current instanceof z.ZodNullable ||
+    current instanceof z.ZodDefault ||
+    current instanceof z.ZodEffects
+  ) {
+    if (current instanceof z.ZodOptional || current instanceof z.ZodNullable) required = false
+    current =
+      current instanceof z.ZodEffects ? current._def.schema : current._def.innerType
+    if (!description) description = current.description
   }
 
-  return { schema: current, required, description }
+  return description === undefined ? { schema: current, required } : { schema: current, required, description }
 }
 
-function stringChecks(schema: z.ZodString): {
+function stringKindAndChecks(schema: z.ZodString): {
   kind: 'text' | 'email' | 'url'
   minLength?: number
   maxLength?: number
@@ -50,7 +42,7 @@ function stringChecks(schema: z.ZodString): {
   return { kind, minLength, maxLength }
 }
 
-function numberChecks(schema: z.ZodNumber): { min?: number; max?: number; step?: number } {
+function zodNumberChecks(schema: z.ZodNumber): { min?: number; max?: number; step?: number } {
   const checks = schema._def.checks ?? []
   let min: number | undefined
   let max: number | undefined
@@ -65,29 +57,21 @@ function numberChecks(schema: z.ZodNumber): { min?: number; max?: number; step?:
 
 function fieldFromZod(name: string, zodField: ZodTypeAny): FieldSpec {
   const { schema, required, description } = unwrap(zodField)
-  const baseExtras: { description?: string } = {}
-  if (description) baseExtras.description = description
-  const base = { name, required, ...baseExtras }
+  const base = buildBase({ name, required, ...(description ? { description } : {}) })
 
   if (schema instanceof z.ZodString) {
-    const { kind, minLength, maxLength } = stringChecks(schema)
-    const extras: { minLength?: number; maxLength?: number } = {}
-    if (minLength !== undefined) extras.minLength = minLength
-    if (maxLength !== undefined) extras.maxLength = maxLength
-    return { ...base, kind, ...extras }
+    const { kind, minLength, maxLength } = stringKindAndChecks(schema)
+    return { ...base, kind, ...stringExtras({ minLength, maxLength }) }
   }
   if (schema instanceof z.ZodNumber) {
-    return { ...base, kind: 'number', ...numberChecks(schema) }
+    return { ...base, kind: 'number', ...numberExtras(zodNumberChecks(schema)) }
   }
-  if (schema instanceof z.ZodBoolean) {
-    return { ...base, kind: 'boolean' }
-  }
-  if (schema instanceof z.ZodDate) {
-    return { ...base, kind: 'date' }
-  }
+  if (schema instanceof z.ZodBoolean) return { ...base, kind: 'boolean' }
+  if (schema instanceof z.ZodDate) return { ...base, kind: 'date' }
+
   if (schema instanceof z.ZodEnum) {
-    const values = schema._def.values as readonly string[]
-    const options: EnumOption[] = values.map((v) => ({ value: v, label: v }))
+    const values = schema._def.values as readonly (string | number)[]
+    const options: EnumOption[] = values.map((v) => ({ value: v, label: String(v) }))
     return { ...base, kind: 'enum', options }
   }
   if (schema instanceof z.ZodNativeEnum) {
@@ -98,11 +82,11 @@ function fieldFromZod(name: string, zodField: ZodTypeAny): FieldSpec {
   if (schema instanceof z.ZodArray) {
     const inner = unwrap(schema._def.type).schema
     if (inner instanceof z.ZodEnum) {
-      const values = inner._def.values as readonly string[]
+      const values = inner._def.values as readonly (string | number)[]
       return {
         ...base,
         kind: 'multi-enum',
-        options: values.map((v) => ({ value: v, label: v })),
+        options: values.map((v) => ({ value: v, label: String(v) })),
       }
     }
     return { ...base, kind: 'array', item: fieldFromZod(`${name}Item`, schema._def.type) }

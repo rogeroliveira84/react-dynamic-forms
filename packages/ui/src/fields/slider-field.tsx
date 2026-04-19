@@ -1,23 +1,13 @@
 import type { NumberFieldSpec } from '@rogeroliveira84/react-dynamic-forms'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Slider } from '../primitives/slider'
 import { FieldWrapper } from './field-wrapper'
-import { getErrorMessage } from './get-error'
+import { useFieldState } from './use-field-state'
 
 export function SliderField({ field }: { field: NumberFieldSpec }) {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext()
-  const error = getErrorMessage(errors as Record<string, unknown>, field.name)
+  const { control, wrapperProps } = useFieldState(field)
   return (
-    <FieldWrapper
-      id={field.name}
-      label={field.label ?? field.name}
-      description={field.description}
-      required={field.required}
-      error={error}
-    >
+    <FieldWrapper {...wrapperProps}>
       <Controller
         control={control}
         name={field.name}
@@ -28,7 +18,7 @@ export function SliderField({ field }: { field: NumberFieldSpec }) {
             max={field.max ?? 100}
             step={field.step ?? 1}
             value={[typeof rhf.value === 'number' ? rhf.value : (field.min ?? 0)]}
-            onValueChange={(v) => rhf.onChange(v[0])}
+            onValueChange={(next) => rhf.onChange(next[0])}
           />
         )}
       />

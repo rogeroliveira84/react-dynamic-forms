@@ -11,6 +11,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -w turbo typecheck
+      - run: pnpm -w turbo lint --continue || true
+      - run: pnpm -w turbo build
+
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -24,6 +38,4 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm -w turbo typecheck
       - run: pnpm -w turbo test
-      - run: pnpm -w turbo build

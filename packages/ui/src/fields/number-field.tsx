@@ -1,23 +1,12 @@
 import type { NumberFieldSpec } from '@rogeroliveira84/react-dynamic-forms'
-import { useFormContext } from 'react-hook-form'
 import { Input } from '../primitives/input'
 import { FieldWrapper } from './field-wrapper'
-import { getErrorMessage } from './get-error'
+import { useFieldState } from './use-field-state'
 
 export function NumberField({ field }: { field: NumberFieldSpec }) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext()
-  const error = getErrorMessage(errors as Record<string, unknown>, field.name)
+  const { register, wrapperProps } = useFieldState(field)
   return (
-    <FieldWrapper
-      id={field.name}
-      label={field.label ?? field.name}
-      description={field.description}
-      required={field.required}
-      error={error}
-    >
+    <FieldWrapper {...wrapperProps}>
       <Input
         id={field.name}
         type="number"

@@ -1,4 +1,5 @@
 import type { FieldSpec, InternalSchema, EnumOption } from '../internal-schema'
+import { buildBase, numberExtras } from './_shared'
 
 export type LegacyOption = { id: string | number; display: string }
 
@@ -29,26 +30,29 @@ const toNum = (v: string | number | undefined): number | undefined =>
 
 function legacyFieldToFieldSpec(f: LegacyField): FieldSpec {
   const required = f.required === true || f.required === 'true'
-  const extras: { description?: string; placeholder?: string; defaultValue?: unknown } = {}
-  if (f.description) extras.description = f.description
-  if (f.placeholder) extras.placeholder = f.placeholder
-  if (f.defaultValue !== undefined && f.defaultValue !== '') extras.defaultValue = f.defaultValue
-  const base = { name: f.id, label: f.label, required, ...extras }
+  const base = buildBase({
+    name: f.id,
+    required,
+    label: f.label,
+    ...(f.description ? { description: f.description } : {}),
+    ...(f.placeholder ? { placeholder: f.placeholder } : {}),
+    ...(f.defaultValue !== undefined && f.defaultValue !== '' ? { defaultValue: f.defaultValue } : {}),
+  })
   const def = f.definition ?? {}
 
   switch (f.type) {
-    case 'text': {
-      const strExtras: { maxLength?: number } = {}
-      if (def.maxlength !== undefined) strExtras.maxLength = Number(def.maxlength)
-      return { ...base, kind: 'text', ...strExtras }
-    }
-    case 'number': {
-      const numExtras: { min?: number; max?: number; step?: number } = {}
-      if (def.min !== undefined) numExtras.min = toNum(def.min) ?? 0
-      if (def.max !== undefined) numExtras.max = toNum(def.max) ?? 0
-      if (def.step !== undefined) numExtras.step = toNum(def.step) ?? 1
-      return { ...base, kind: 'number', ...numExtras }
-    }
+    case 'text':
+      return {
+        ...base,
+        kind: 'text',
+        ...(def.maxlength !== undefined ? { maxLength: Number(def.maxlength) } : {}),
+      }
+    case 'number':
+      return {
+        ...base,
+        kind: 'number',
+        ...numberExtras({ min: toNum(def.min), max: toNum(def.max), step: toNum(def.step) }),
+      }
     case 'date':
       return { ...base, kind: 'date' }
     case 'datetime-local':
@@ -71,10 +75,7 @@ function legacyFieldToFieldSpec(f: LegacyField): FieldSpec {
 }
 
 export function legacyConfigToInternalSchema(cfg: LegacyConfig): InternalSchema {
-  const extras: { title?: string } = {}
-  if (cfg.name) extras.title = cfg.name
-  return {
-    ...extras,
-    fields: cfg.fields.map(legacyFieldToFieldSpec),
-  }
+  const out: InternalSchema = { fields: cfg.fields.map(legacyFieldToFieldSpec) }
+  if (cfg.name) out.title = cfg.name
+  return out
 }

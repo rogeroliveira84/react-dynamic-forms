@@ -26,7 +26,7 @@
   "files": ["dist", "README.md"],
   "sideEffects": ["**/*.css"],
   "scripts": {
-    "build": "tsup && cp src/styles/globals.css dist/styles.css",
+    "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -41,7 +41,6 @@
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
-    "@radix-ui/react-radio-group": "^1.2.1",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slider": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.0",
