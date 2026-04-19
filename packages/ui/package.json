@@ -1,6 +1,6 @@
 {
   "name": "@rogeroliveira84/react-dynamic-forms-ui",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "shadcn/ui components for react-dynamic-forms.",
   "license": "MIT",
   "author": "Roger Oliveira <rogeroliveira84@gmail.com>",
@@ -10,7 +10,13 @@
     "directory": "packages/ui"
   },
   "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
-  "keywords": ["react", "shadcn", "tailwind", "forms", "dynamic-forms"],
+  "keywords": [
+    "react",
+    "shadcn",
+    "tailwind",
+    "forms",
+    "dynamic-forms"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -23,8 +29,13 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": ["dist", "README.md"],
-  "sideEffects": ["**/*.css"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
