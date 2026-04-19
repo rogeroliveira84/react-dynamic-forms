@@ -46,6 +46,42 @@ describe('<DynamicForm>', () => {
     expect(screen.getByLabelText(/title/i)).toBeInTheDocument()
   })
 
+  it('honors showIf to hide and reveal fields reactively', async () => {
+    const schema = {
+      type: 'object' as const,
+      properties: {
+        guard: { type: 'boolean' as const, title: 'Show extra?' },
+        extra: {
+          type: 'string' as const,
+          title: 'Extra field',
+          'x-rdf-show-if': { field: 'guard', equals: true },
+        },
+      },
+    }
+    render(<DynamicForm schema={schema} onSubmit={() => {}} defaultValues={{ guard: false }} />)
+    expect(screen.queryByLabelText(/extra field/i)).not.toBeInTheDocument()
+    await userEvent.click(screen.getByLabelText(/show extra\?/i))
+    expect(await screen.findByLabelText(/extra field/i)).toBeInTheDocument()
+  })
+
+  it('renders file field with accept attribute', () => {
+    const schema = {
+      type: 'object' as const,
+      properties: {
+        avatar: {
+          type: 'string' as const,
+          title: 'Avatar',
+          format: 'data-url' as const,
+          contentMediaType: 'image/*',
+        },
+      },
+    }
+    render(<DynamicForm schema={schema} onSubmit={() => {}} />)
+    const input = screen.getByLabelText(/avatar/i) as HTMLInputElement
+    expect(input).toHaveAttribute('type', 'file')
+    expect(input).toHaveAttribute('accept', 'image/*')
+  })
+
   it('renders from legacy config with deprecation warning', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const legacy = {

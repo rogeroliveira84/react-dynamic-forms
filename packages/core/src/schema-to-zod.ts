@@ -61,6 +61,19 @@ function fieldToZod(f: FieldSpec): ZodTypeAny {
     case 'object':
       s = internalToZod({ fields: f.fields })
       break
+    case 'file': {
+      let file = z.custom<File>((v) => typeof File !== 'undefined' && v instanceof File, {
+        message: 'Expected a File',
+      })
+      if (f.maxSize !== undefined) {
+        const max = f.maxSize
+        file = file.refine((v: File) => v.size <= max, {
+          message: `File exceeds max size of ${max} bytes`,
+        })
+      }
+      s = f.multiple ? z.array(file) : file
+      break
+    }
   }
   if (!f.required) s = s.optional()
   if (f.description) s = s.describe(f.description)

@@ -14,6 +14,7 @@ export { MultiEnumField } from './fields/multi-enum-field'
 export { SliderField } from './fields/slider-field'
 export { ObjectField } from './fields/object-field'
 export { ArrayField } from './fields/array-field'
+export { FileField } from './fields/file-field'
 
 export { Input } from './primitives/input'
 export { Label } from './primitives/label'

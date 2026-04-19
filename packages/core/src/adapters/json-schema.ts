@@ -1,4 +1,4 @@
-import type { FieldSpec, InternalSchema, EnumOption } from '../internal-schema'
+import type { FieldSpec, InternalSchema, EnumOption, ShowIfRule } from '../internal-schema'
 import { buildBase, numberExtras, stringExtras } from './_shared'
 
 export type JsonSchema = {
@@ -8,6 +8,7 @@ export type JsonSchema = {
   items?: JsonSchema
   enum?: readonly (string | number)[]
   format?: string
+  contentMediaType?: string
   minimum?: number
   maximum?: number
   minLength?: number
@@ -18,6 +19,9 @@ export type JsonSchema = {
   title?: string
   default?: unknown
   $schema?: string
+  'x-rdf-show-if'?: ShowIfRule
+  'x-rdf-max-size'?: number
+  'x-rdf-multiple'?: boolean
 }
 
 function jsonFieldFromSchema(name: string, schema: JsonSchema, required: boolean): FieldSpec {
@@ -28,6 +32,7 @@ function jsonFieldFromSchema(name: string, schema: JsonSchema, required: boolean
     ...(schema.description ? { description: schema.description } : {}),
     ...(schema.default !== undefined ? { defaultValue: schema.default } : {}),
   })
+  if (schema['x-rdf-show-if']) base.showIf = schema['x-rdf-show-if']
 
   if (schema.enum) {
     const options: EnumOption[] = schema.enum.map((v) => ({ value: v, label: String(v) }))
@@ -44,6 +49,13 @@ function jsonFieldFromSchema(name: string, schema: JsonSchema, required: boolean
     if (fmt === 'date-time') return { ...base, kind: 'datetime' }
     if (fmt === 'time') return { ...base, kind: 'time' }
     if (fmt === 'password') return { ...base, kind: 'password' }
+    if (fmt === 'data-url' || fmt === 'binary' || schema.contentMediaType) {
+      const file: FieldSpec = { ...base, kind: 'file' }
+      if (schema.contentMediaType) file.accept = schema.contentMediaType
+      if (schema['x-rdf-max-size']) file.maxSize = schema['x-rdf-max-size']
+      if (schema['x-rdf-multiple']) file.multiple = schema['x-rdf-multiple']
+      return file
+    }
     return {
       ...base,
       kind: 'text',
