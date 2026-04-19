@@ -1,0 +1,77 @@
+{
+  "name": "@rogeroliveira84/react-dynamic-forms",
+  "version": "1.0.0-next.0",
+  "description": "Zod-powered dynamic React forms. Type-safe. AI-ready.",
+  "license": "MIT",
+  "author": "Roger Oliveira <rogeroliveira84@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rogeroliveira84/react-dynamic-forms",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
+  "keywords": [
+    "react",
+    "react-19",
+    "forms",
+    "zod",
+    "json-schema",
+    "dynamic-forms",
+    "react-hook-form",
+    "shadcn",
+    "typescript"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "zod": "^3.23.0"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "react-hook-form": "^7.53.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitest/coverage-v8": "^2.1.5",
+    "jsdom": "^25.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5",
+    "zod": "^3.23.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
