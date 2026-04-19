@@ -1,6 +1,6 @@
 {
   "name": "@rogeroliveira84/react-dynamic-forms",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "Zod-powered dynamic React forms. Type-safe. AI-ready.",
   "license": "MIT",
   "author": "Roger Oliveira <rogeroliveira84@gmail.com>",
