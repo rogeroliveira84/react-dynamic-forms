@@ -10,7 +10,16 @@
     "directory": "packages/ai"
   },
   "homepage": "https://github.com/rogeroliveira84/react-dynamic-forms",
-  "keywords": ["react", "forms", "zod", "ai", "vercel-ai-sdk", "anthropic", "openai", "claude"],
+  "keywords": [
+    "react",
+    "forms",
+    "zod",
+    "ai",
+    "vercel-ai-sdk",
+    "anthropic",
+    "openai",
+    "claude"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -22,7 +31,10 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
@@ -37,7 +49,9 @@
     "zod": "^3.23.0"
   },
   "peerDependenciesMeta": {
-    "ai": { "optional": false }
+    "ai": {
+      "optional": false
+    }
   },
   "dependencies": {},
   "devDependencies": {
