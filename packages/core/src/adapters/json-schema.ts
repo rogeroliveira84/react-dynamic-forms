@@ -1,11 +1,11 @@
 import type { FieldSpec, InternalSchema, EnumOption } from '../internal-schema'
 
 export type JsonSchema = {
-  type?: string | string[]
-  properties?: Record<string, JsonSchema>
-  required?: string[]
+  type?: string | readonly string[]
+  properties?: Readonly<Record<string, JsonSchema>>
+  required?: readonly string[]
   items?: JsonSchema
-  enum?: (string | number)[]
+  enum?: readonly (string | number)[]
   format?: string
   minimum?: number
   maximum?: number
