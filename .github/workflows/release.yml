@@ -24,8 +24,16 @@ jobs:
           node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
-      - name: Upgrade npm for OIDC trusted publishing (requires >= 11.5.1)
-        run: npm install -g npm@latest
+      # Node 22 ships with npm 10.x; OIDC trusted publishing needs >= 11.5.1.
+      # Self-replacing the bundled npm via `npm install -g npm@latest` breaks
+      # (see npm/cli#7389), so install to an isolated prefix and put that on PATH.
+      - name: Install npm >= 11.5.1 to isolated prefix
+        run: |
+          mkdir -p "$HOME/.npm-latest"
+          npm install --prefix "$HOME/.npm-latest" npm@latest
+          echo "$HOME/.npm-latest/node_modules/.bin" >> $GITHUB_PATH
+      - name: Verify npm version
+        run: npm --version
       - run: pnpm install --frozen-lockfile
       - name: Run release
         uses: changesets/action@v1
