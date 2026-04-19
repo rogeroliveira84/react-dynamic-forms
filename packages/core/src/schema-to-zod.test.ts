@@ -121,4 +121,25 @@ describe('internalToZod', () => {
     const res = zod.safeParse({ dob: '1990-01-01' })
     expect(res.success).toBe(true)
   })
+
+  it('validates file kind with maxSize', () => {
+    const zod = internalToZod({
+      fields: [{ kind: 'file', name: 'avatar', required: true, maxSize: 100 }],
+    })
+    const small = new File(['x'], 'a.txt', { type: 'text/plain' })
+    const big = new File(['x'.repeat(200)], 'b.txt', { type: 'text/plain' })
+    expect(zod.safeParse({ avatar: small }).success).toBe(true)
+    expect(zod.safeParse({ avatar: big }).success).toBe(false)
+    expect(zod.safeParse({ avatar: 'not-a-file' }).success).toBe(false)
+  })
+
+  it('validates multiple files as array', () => {
+    const zod = internalToZod({
+      fields: [{ kind: 'file', name: 'docs', required: true, multiple: true }],
+    })
+    const f1 = new File(['a'], 'a.txt')
+    const f2 = new File(['b'], 'b.txt')
+    expect(zod.safeParse({ docs: [f1, f2] }).success).toBe(true)
+    expect(zod.safeParse({ docs: f1 }).success).toBe(false)
+  })
 })

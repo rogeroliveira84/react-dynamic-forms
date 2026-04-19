@@ -42,7 +42,7 @@ export function SignupForm() {
 - 🎨 **Beautiful** — shadcn/ui out of the box, fully themeable via CSS variables.
 - ♿ **Accessible** — WCAG AA, keyboard-first, ARIA-correct, dark-mode ready.
 - 🔀 **Hybrid input** — accepts **Zod schemas**, **JSON Schema Draft 2020-12**, or **legacy v0.5 config**.
-- 🤖 **AI-ready** *(v2)* — prompt → schema → form in seconds.
+- 🤖 **AI-powered** — `generateSchema({ prompt, model })` turns plain English into a validated Zod schema in one call.
 
 ## 📦 Install
 
@@ -61,9 +61,27 @@ pnpm add @rogeroliveira84/react-dynamic-forms @rogeroliveira84/react-dynamic-for
 
 ## 🧱 Supported field kinds
 
-`text` · `email` · `password` · `url` · `number` · `slider` · `textarea` · `boolean` · `date` · `datetime` · `time` · `enum` · `multi-enum` · `object` *(nested)* · `array` *(repeater)*
+`text` · `email` · `password` · `url` · `number` · `slider` · `textarea` · `boolean` · `date` · `datetime` · `time` · `enum` · `multi-enum` · `object` *(nested)* · `array` *(repeater)* · `file` · plus `showIf` conditional fields on any kind.
 
-Coming in v2: `combobox` *(async)*, `file`, `richtext`, `conditional`, `multi-step wizard`.
+Coming next: `combobox` *(async)*, `richtext`, `multi-step wizard`, i18n.
+
+## 🤖 AI schema generation
+
+```tsx
+import { generateSchema } from '@rogeroliveira84/react-dynamic-forms-ai'
+import { DynamicForm } from '@rogeroliveira84/react-dynamic-forms-ui'
+import { anthropic } from '@ai-sdk/anthropic'
+
+const { internalSchema, zodCode } = await generateSchema({
+  from: 'text',
+  prompt: 'A job application form for software engineers with portfolio and years of experience',
+  model: anthropic('claude-sonnet-4-6'),
+})
+
+<DynamicForm schema={internalSchema} onSubmit={(data) => console.log(data)} />
+```
+
+Server-side only — never expose API keys to the browser. Works with any `@ai-sdk/*` provider (Anthropic, OpenAI, Google, Mistral, Groq, etc.).
 
 ## 🎨 Styling & theming
 

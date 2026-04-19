@@ -1,4 +1,5 @@
-import type { FieldSpec } from '@rogeroliveira84/react-dynamic-forms'
+import type { FieldSpec, ShowIfRule } from '@rogeroliveira84/react-dynamic-forms'
+import { useWatch } from 'react-hook-form'
 import { TextField } from './text-field'
 import { NumberField } from './number-field'
 import { BooleanField } from './boolean-field'
@@ -9,9 +10,9 @@ import { MultiEnumField } from './multi-enum-field'
 import { SliderField } from './slider-field'
 import { ObjectField } from './object-field'
 import { ArrayField } from './array-field'
+import { FileField } from './file-field'
 
-export function FieldResolver({ field }: { field: FieldSpec }) {
-  if (field.hidden) return null
+function renderField(field: FieldSpec) {
   switch (field.kind) {
     case 'text':
     case 'email':
@@ -38,5 +39,19 @@ export function FieldResolver({ field }: { field: FieldSpec }) {
       return <ObjectField field={field} />
     case 'array':
       return <ArrayField field={field} />
+    case 'file':
+      return <FileField field={field} />
   }
+}
+
+function ConditionalField({ field, rule }: { field: FieldSpec; rule: ShowIfRule }) {
+  const watched = useWatch({ name: rule.field })
+  if (watched !== rule.equals) return null
+  return renderField(field)
+}
+
+export function FieldResolver({ field }: { field: FieldSpec }) {
+  if (field.hidden) return null
+  if (field.showIf) return <ConditionalField field={field} rule={field.showIf} />
+  return renderField(field)
 }

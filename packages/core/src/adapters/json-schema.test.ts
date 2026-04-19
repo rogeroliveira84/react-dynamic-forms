@@ -94,4 +94,54 @@ describe('jsonSchemaToInternalSchema', () => {
   it('throws on non-object root', () => {
     expect(() => jsonSchemaToInternalSchema({ type: 'string' })).toThrow(/root must be an object/i)
   })
+
+  it('detects file via format: data-url', () => {
+    const result = jsonSchemaToInternalSchema({
+      type: 'object',
+      properties: { avatar: { type: 'string', format: 'data-url' } },
+    })
+    expect(result.fields[0]).toMatchObject({ kind: 'file' })
+  })
+
+  it('detects file via contentMediaType and passes accept', () => {
+    const result = jsonSchemaToInternalSchema({
+      type: 'object',
+      properties: { upload: { type: 'string', contentMediaType: 'image/*' } },
+    })
+    expect(result.fields[0]).toMatchObject({ kind: 'file', accept: 'image/*' })
+  })
+
+  it('reads x-rdf-show-if onto showIf', () => {
+    const result = jsonSchemaToInternalSchema({
+      type: 'object',
+      properties: {
+        maybeShown: {
+          type: 'string',
+          'x-rdf-show-if': { field: 'guard', equals: true },
+        },
+      },
+    })
+    expect(result.fields[0]).toMatchObject({
+      showIf: { field: 'guard', equals: true },
+    })
+  })
+
+  it('reads x-rdf-max-size and x-rdf-multiple on file', () => {
+    const result = jsonSchemaToInternalSchema({
+      type: 'object',
+      properties: {
+        pic: {
+          type: 'string',
+          format: 'data-url',
+          'x-rdf-max-size': 1024,
+          'x-rdf-multiple': true,
+        },
+      },
+    })
+    expect(result.fields[0]).toMatchObject({
+      kind: 'file',
+      maxSize: 1024,
+      multiple: true,
+    })
+  })
 })
