@@ -6,6 +6,11 @@ on:
 
 concurrency: release
 
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # OIDC — required for npm Trusted Publisher
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -19,11 +24,14 @@ jobs:
           node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
+      - name: Upgrade npm for OIDC trusted publishing support
+        run: npm install -g npm@latest
       - run: pnpm install --frozen-lockfile
-      - uses: changesets/action@v1
+      - name: Run release
+        uses: changesets/action@v1
         with:
           publish: pnpm release
           version: pnpm version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'
