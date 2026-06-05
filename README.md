@@ -2,7 +2,7 @@
 
 # 🎛️ React Dynamic Forms
 
-### Zod-powered dynamic React forms. Type-safe. AI-ready.
+### Zod-powered dynamic React forms. Type-safe. Tiny.
 
 [![npm version](https://img.shields.io/npm/v/@rogeroliveira84/react-dynamic-forms?color=blue&label=npm)](https://www.npmjs.com/package/@rogeroliveira84/react-dynamic-forms)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/@rogeroliveira84/react-dynamic-forms?label=gzipped)](https://bundlephobia.com/package/@rogeroliveira84/react-dynamic-forms)
@@ -42,7 +42,9 @@ export function SignupForm() {
 - 🎨 **Beautiful** — shadcn/ui out of the box, fully themeable via CSS variables.
 - ♿ **Accessible** — WCAG AA, keyboard-first, ARIA-correct, dark-mode ready.
 - 🔀 **Hybrid input** — accepts **Zod schemas**, **JSON Schema Draft 2020-12**, or **legacy v0.5 config**.
-- 🤖 **AI-powered** — `generateSchema({ prompt, model })` turns plain English into a validated Zod schema in one call.
+- 🧙 **Multi-step wizard** — split any schema into validated steps with one component.
+- 🔎 **Async combobox** — searchable selects backed by remote data, no extra wiring.
+- 🌍 **i18n** — localize every validation message with a single `locale` prop.
 
 ## 📦 Install
 
@@ -54,34 +56,49 @@ pnpm add @rogeroliveira84/react-dynamic-forms @rogeroliveira84/react-dynamic-for
 
 | Input                              | Example                                           | Status          |
 |------------------------------------|---------------------------------------------------|-----------------|
-| **Zod**                            | `z.object({ ... })`                               | ✅ v1           |
-| **JSON Schema Draft 2020-12**      | `{ type: 'object', properties: { ... } }`         | ✅ v1           |
+| **Zod**                            | `z.object({ ... })`                               | ✅              |
+| **JSON Schema Draft 2020-12**      | `{ type: 'object', properties: { ... } }`         | ✅              |
 | **Legacy v0.5 config**             | `{ fields: [{ id, label, type, ... }] }`          | ⚠️ deprecated  |
-| **AI prompt → schema**             | `generateSchema({ prompt: '...' })`                | 🔜 v2           |
 
 ## 🧱 Supported field kinds
 
-`text` · `email` · `password` · `url` · `number` · `slider` · `textarea` · `boolean` · `date` · `datetime` · `time` · `enum` · `multi-enum` · `object` *(nested)* · `array` *(repeater)* · `file` · plus `showIf` conditional fields on any kind.
+`text` · `email` · `password` · `url` · `number` · `slider` · `textarea` · `boolean` · `date` · `datetime` · `time` · `enum` · `multi-enum` · `combobox` *(static or async)* · `object` *(nested)* · `array` *(repeater)* · `file` · plus `showIf` conditional fields on any kind.
 
-Coming next: `combobox` *(async)*, `richtext`, `multi-step wizard`, i18n.
+## 🧙 Multi-step wizard
 
-## 🤖 AI schema generation
+Split a single schema into validated steps. One form underneath — values persist as you navigate, and **Next** won't advance while the current step is invalid.
 
 ```tsx
-import { generateSchema } from '@rogeroliveira84/react-dynamic-forms-ai'
-import { DynamicForm } from '@rogeroliveira84/react-dynamic-forms-ui'
-import { anthropic } from '@ai-sdk/anthropic'
-
-const { internalSchema, zodCode } = await generateSchema({
-  from: 'text',
-  prompt: 'A job application form for software engineers with portfolio and years of experience',
-  model: anthropic('claude-sonnet-4-6'),
-})
-
-<DynamicForm schema={internalSchema} onSubmit={(data) => console.log(data)} />
+<DynamicForm.Wizard
+  schema={schema}
+  steps={[
+    { title: 'Account', fields: ['email', 'password'] },
+    { title: 'Profile', fields: ['name', 'age'] },
+  ]}
+  onSubmit={(data) => console.log(data)}
+/>
 ```
 
-Server-side only — never expose API keys to the browser. Works with any `@ai-sdk/*` provider (Anthropic, OpenAI, Google, Mistral, Groq, etc.).
+## 🔎 Combobox with async options
+
+Any field with an async loader becomes a searchable, debounced, keyboard-navigable combobox — even a plain `z.string()`.
+
+```tsx
+<DynamicForm
+  schema={z.object({ city: z.string() })}
+  asyncOptions={{ city: (query) => fetchCities(query) }}
+/>
+```
+
+For static lists, declare a combobox in JSON Schema with the `x-rdf-combobox` extension.
+
+## 🌍 Internationalized validation
+
+One prop localizes every validation message. Built-in `en`, `pt-BR`, and `es`; override individual messages with `messages`, or pass your own message object. Messages set explicitly on the schema always win.
+
+```tsx
+<DynamicForm schema={schema} locale="pt-BR" />
+```
 
 ## 🎨 Styling & theming
 
@@ -98,29 +115,32 @@ The defaults ship in `@rogeroliveira84/react-dynamic-forms-ui/styles.css`. The `
 
 ## 🧭 Comparison
 
-| Feature                            | RDF v1     | RJSF | JSON Forms | react-hook-form |
+| Feature                            | RDF        | RJSF | JSON Forms | react-hook-form |
 |------------------------------------|------------|------|------------|-----------------|
 | Zod schema input                   | ✅         | ❌   | ❌         | ✅              |
 | JSON Schema input                  | ✅         | ✅   | ✅         | ❌              |
 | shadcn/ui out of the box           | ✅         | ❌   | ❌         | ❌              |
 | TypeScript inference of form data  | ✅         | ⚠️   | ⚠️         | ✅              |
+| Multi-step wizard                  | ✅         | ❌   | ⚠️         | DIY             |
+| Async combobox                     | ✅         | ⚠️   | ⚠️         | DIY             |
+| Localized validation               | ✅         | ⚠️   | ✅         | DIY             |
 | Bundle size (gzip, core)           | < 15 kb    | ~60 kb | ~80 kb   | ~9 kb           |
-| AI-powered generation (planned)    | ✅ v2      | ❌   | ❌         | ❌              |
 
 *Bundle numbers are approximations from Bundlephobia. All these libs are great — this table is about fit.*
 
 ## 📚 Docs
 
-- [Live playground](https://rdf.dev) *(coming soon)*
 - [Migration from v0.5](./docs/migrate-from-v0.md)
 - [Design spec](./docs/superpowers/specs/2026-04-19-rdf-modernization-design.md)
+- [Power features spec](./docs/superpowers/specs/2026-06-05-rdf-power-features-design.md)
 
 ## 🗺️ Roadmap
 
-- [x] **v1.0** — Foundation (Zod + JSON Schema + shadcn + RHF)
-- [ ] **v1.1** — `file`, `combobox`, `conditional`
-- [ ] **v2.0** — AI generator (`prompt → schema`), multi-step wizard, i18n
-- [ ] **v3.0** — Visual form builder *(maybe)*
+- [x] **Foundation** — Zod + JSON Schema + shadcn + RHF
+- [x] **File upload + conditional fields** (`showIf`)
+- [x] **Multi-step wizard · async combobox · i18n**
+- [ ] **Multi-select combobox · rich text**
+- [ ] **Visual form builder** *(maybe)*
 
 ## 🤝 Contributing
 
