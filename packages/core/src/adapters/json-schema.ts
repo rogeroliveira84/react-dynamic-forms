@@ -22,6 +22,7 @@ export type JsonSchema = {
   'x-rdf-show-if'?: ShowIfRule
   'x-rdf-max-size'?: number
   'x-rdf-multiple'?: boolean
+  'x-rdf-combobox'?: boolean
 }
 
 function jsonFieldFromSchema(name: string, schema: JsonSchema, required: boolean): FieldSpec {
@@ -33,6 +34,12 @@ function jsonFieldFromSchema(name: string, schema: JsonSchema, required: boolean
     ...(schema.default !== undefined ? { defaultValue: schema.default } : {}),
   })
   if (schema['x-rdf-show-if']) base.showIf = schema['x-rdf-show-if']
+
+  if (schema['x-rdf-combobox']) {
+    const field: FieldSpec = { ...base, kind: 'combobox' }
+    if (schema.enum) field.options = schema.enum.map((v) => ({ value: v, label: String(v) }))
+    return field
+  }
 
   if (schema.enum) {
     const options: EnumOption[] = schema.enum.map((v) => ({ value: v, label: String(v) }))

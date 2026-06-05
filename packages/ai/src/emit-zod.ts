@@ -57,6 +57,15 @@ function emitField(field: FieldSpec): string {
       expr = `z.array(${inner})`
       break
     }
+    case 'combobox': {
+      if (field.options && field.options.length > 0) {
+        const parts = field.options.map((o) => `z.literal(${quote(o.value)})`).join(', ')
+        expr = field.options.length >= 2 ? `z.union([${parts}])` : parts
+      } else {
+        expr = 'z.string()'
+      }
+      break
+    }
     case 'array':
       expr = `z.array(${emitField(field.item)})`
       break

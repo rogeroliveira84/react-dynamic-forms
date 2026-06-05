@@ -12,11 +12,16 @@ import { detectAndConvert, type SchemaInput } from './adapters/detect'
 import { isZodLike } from './adapters/is-zod'
 import { internalToZod } from './schema-to-zod'
 import type { InternalSchema } from './internal-schema'
+import { createErrorMap, resolveMessages, type RdfLocaleInput, type RdfMessages } from './i18n'
 
 export type UseDynamicFormOptions<TValues extends FieldValues = FieldValues> = {
   schema: SchemaInput
   defaultValues?: DefaultValues<TValues>
   mode?: UseFormProps<TValues>['mode']
+  /** Built-in locale name ('en' | 'pt-BR' | 'es') or a custom message object. */
+  locale?: RdfLocaleInput
+  /** Per-key overrides applied on top of the locale. */
+  messages?: RdfMessages
 }
 
 export type UseDynamicFormReturn<TValues extends FieldValues = FieldValues> = {
@@ -36,7 +41,13 @@ export function useDynamicForm<TValues extends FieldValues = FieldValues>(
         : (internalToZod(internalSchema) as ZodType<unknown>),
     [options.schema, internalSchema],
   )
-  const resolver = useMemo(() => zodResolver(zodSchema), [zodSchema])
+  const resolver = useMemo(() => {
+    if (options.locale === undefined && options.messages === undefined) {
+      return zodResolver(zodSchema)
+    }
+    const errorMap = createErrorMap(resolveMessages(options.locale, options.messages))
+    return zodResolver(zodSchema, { errorMap })
+  }, [zodSchema, options.locale, options.messages])
 
   const form = useForm<TValues>({
     resolver,

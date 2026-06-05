@@ -55,6 +55,14 @@ function fieldToZod(f: FieldSpec): ZodTypeAny {
       s = z.array(enumUnion(values))
       break
     }
+    case 'combobox': {
+      if (f.options && f.options.length > 0) {
+        s = enumUnion(f.options.map((o) => z.literal(o.value)))
+      } else {
+        s = z.string()
+      }
+      break
+    }
     case 'array':
       s = z.array(fieldToZod(f.item))
       break
