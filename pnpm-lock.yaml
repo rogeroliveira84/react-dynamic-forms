@@ -229,6 +229,9 @@ importers:
       '@radix-ui/react-switch':
         specifier: ^1.1.1
         version: 1.2.6(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@rogeroliveira84/react-dynamic-forms':
+        specifier: workspace:*
+        version: link:../core
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.1
@@ -242,9 +245,6 @@ importers:
         specifier: ^2.5.4
         version: 2.6.1
     devDependencies:
-      '@rogeroliveira84/react-dynamic-forms':
-        specifier: workspace:*
-        version: link:../core
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.9.1

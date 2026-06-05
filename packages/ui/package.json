@@ -44,12 +44,12 @@
     "lint": "eslint src"
   },
   "peerDependencies": {
-    "@rogeroliveira84/react-dynamic-forms": "workspace:*",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "react-hook-form": "^7.0.0"
   },
   "dependencies": {
+    "@rogeroliveira84/react-dynamic-forms": "workspace:*",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.2",
@@ -63,7 +63,6 @@
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
-    "@rogeroliveira84/react-dynamic-forms": "workspace:*",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
