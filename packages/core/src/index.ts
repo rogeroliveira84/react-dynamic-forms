@@ -12,6 +12,16 @@ export type { LegacyConfig, LegacyField, LegacyOption } from './adapters/legacy'
 
 export { internalToZod } from './schema-to-zod'
 
+export { createErrorMap, resolveMessages, en, ptBR, es } from './i18n'
+export type {
+  RdfLocale,
+  RdfLocaleInput,
+  RdfMessages,
+  RdfMessageKey,
+  RdfMessageValue,
+  RdfMessageParams,
+} from './i18n'
+
 export type {
   InternalSchema,
   FieldSpec,
@@ -24,6 +34,7 @@ export type {
   BooleanFieldSpec,
   DateFieldSpec,
   EnumFieldSpec,
+  ComboboxFieldSpec,
   ObjectFieldSpec,
   ArrayFieldSpec,
   FileFieldSpec,

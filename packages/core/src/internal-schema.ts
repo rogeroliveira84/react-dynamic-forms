@@ -12,6 +12,7 @@ export type FieldKind =
   | 'time'
   | 'enum'
   | 'multi-enum'
+  | 'combobox'
   | 'object'
   | 'array'
   | 'file'
@@ -62,6 +63,12 @@ export type EnumFieldSpec = BaseFieldSpec & {
   options: EnumOption[]
 }
 
+export type ComboboxFieldSpec = BaseFieldSpec & {
+  kind: 'combobox'
+  /** Static options. Omitted when options are supplied asynchronously at render time. */
+  options?: EnumOption[]
+}
+
 export type ObjectFieldSpec = BaseFieldSpec & {
   kind: 'object'
   fields: FieldSpec[]
@@ -87,6 +94,7 @@ export type FieldSpec =
   | BooleanFieldSpec
   | DateFieldSpec
   | EnumFieldSpec
+  | ComboboxFieldSpec
   | ObjectFieldSpec
   | ArrayFieldSpec
   | FileFieldSpec
