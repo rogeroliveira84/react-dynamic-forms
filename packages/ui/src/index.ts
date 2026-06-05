@@ -1,8 +1,15 @@
 export { DynamicForm, type DynamicFormProps } from './dynamic-form'
+export { FormWizard, type FormWizardProps, type WizardStep } from './form-wizard'
 
 export { FieldResolver } from './fields/field-resolver'
 export { FieldWrapper, type FieldWrapperProps } from './fields/field-wrapper'
 export { useFieldState, type FieldState } from './fields/use-field-state'
+export {
+  RdfConfigProvider,
+  useRdfConfig,
+  type RdfConfig,
+  type AsyncOptionsMap,
+} from './fields/rdf-config'
 
 export { TextField } from './fields/text-field'
 export { NumberField } from './fields/number-field'
@@ -15,6 +22,7 @@ export { SliderField } from './fields/slider-field'
 export { ObjectField } from './fields/object-field'
 export { ArrayField } from './fields/array-field'
 export { FileField } from './fields/file-field'
+export { ComboboxField } from './fields/combobox-field'
 
 export { Input } from './primitives/input'
 export { Label } from './primitives/label'
@@ -30,5 +38,6 @@ export {
 export { Switch } from './primitives/switch'
 export { Textarea } from './primitives/textarea'
 export { Slider } from './primitives/slider'
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from './primitives/popover'
 
 export { cn } from './utils/cn'

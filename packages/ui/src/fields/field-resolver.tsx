@@ -1,4 +1,4 @@
-import type { FieldSpec, ShowIfRule } from '@rogeroliveira84/react-dynamic-forms'
+import type { FieldSpec, ComboboxFieldSpec, ShowIfRule } from '@rogeroliveira84/react-dynamic-forms'
 import { useWatch } from 'react-hook-form'
 import { TextField } from './text-field'
 import { NumberField } from './number-field'
@@ -11,6 +11,8 @@ import { SliderField } from './slider-field'
 import { ObjectField } from './object-field'
 import { ArrayField } from './array-field'
 import { FileField } from './file-field'
+import { ComboboxField } from './combobox-field'
+import { useRdfConfig } from './rdf-config'
 
 function renderField(field: FieldSpec) {
   switch (field.kind) {
@@ -35,6 +37,8 @@ function renderField(field: FieldSpec) {
       return <EnumField field={field} />
     case 'multi-enum':
       return <MultiEnumField field={field} />
+    case 'combobox':
+      return <ComboboxField field={field} />
     case 'object':
       return <ObjectField field={field} />
     case 'array':
@@ -51,7 +55,14 @@ function ConditionalField({ field, rule }: { field: FieldSpec; rule: ShowIfRule 
 }
 
 export function FieldResolver({ field }: { field: FieldSpec }) {
+  const { asyncOptions } = useRdfConfig()
   if (field.hidden) return null
   if (field.showIf) return <ConditionalField field={field} rule={field.showIf} />
+  // A registered async loader upgrades any field into a searchable async combobox.
+  if (asyncOptions?.[field.name] && field.kind !== 'combobox') {
+    const { kind: _kind, ...rest } = field
+    const upgraded = { ...rest, kind: 'combobox' } as ComboboxFieldSpec
+    return <ComboboxField field={upgraded} />
+  }
   return renderField(field)
 }
