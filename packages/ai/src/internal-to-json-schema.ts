@@ -42,6 +42,15 @@ function fieldToJsonSchema(field: FieldSpec): JsonSchema {
       return { ...base, type: 'string', format: 'time' }
     case 'enum':
       return { ...base, type: 'string', enum: field.options.map((o) => o.value) }
+    case 'combobox': {
+      const out: JsonSchema & { 'x-rdf-combobox'?: boolean } = {
+        ...base,
+        type: 'string',
+        'x-rdf-combobox': true,
+      }
+      if (field.options) out.enum = field.options.map((o) => o.value)
+      return out
+    }
     case 'multi-enum':
       return {
         ...base,
