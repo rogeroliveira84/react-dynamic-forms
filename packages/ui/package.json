@@ -78,7 +78,7 @@
     "tailwindcss": "^3.4.15",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.5",
+    "vitest": "^4.1.0",
     "zod": "^3.23.8"
   },
   "publishConfig": {
