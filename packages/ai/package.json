@@ -1,6 +1,7 @@
 {
   "name": "@rogeroliveira84/react-dynamic-forms-ai",
   "version": "0.1.0",
+  "private": true,
   "description": "AI-powered schema generation for @rogeroliveira84/react-dynamic-forms — prompt or TS or JSON sample to Zod schema.",
   "license": "MIT",
   "author": "Roger Oliveira <rogeroliveira84@gmail.com>",
